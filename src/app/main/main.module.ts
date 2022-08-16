@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserCardComponent } from './user-card/user-card.component';
 import { SortBarComponent } from './sort-bar/sort-bar.component';
+import {MatButtonModule} from '@angular/material/button';
 
 
 
@@ -13,7 +14,7 @@ import { SortBarComponent } from './sort-bar/sort-bar.component';
     SortBarComponent
   ],
   imports: [
-    CommonModule
+    CommonModule, MatButtonModule
   ],
   exports: [
     UserListComponent, UserCardComponent, SortBarComponent

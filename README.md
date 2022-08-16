@@ -14,4 +14,6 @@
 * - Added button that hides/shows non-Active users.
 * - Added button that sorts the userLst to all/female/male.
 * - Added button for each usercard to alter the status Active/non-Active - which is displayed also.
+* - Added Angular Material to project.
+
 

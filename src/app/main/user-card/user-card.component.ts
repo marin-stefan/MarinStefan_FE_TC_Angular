@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-user-card',
@@ -12,6 +12,8 @@ export class UserCardComponent implements OnInit {
   @Input() gender:string;
   @Input() activated: boolean ;
 
+  @Output() active = new EventEmitter<{status:boolean,name: string}>();
+  userstatus : boolean
   constructor() { }
 
   ngOnInit(): void {
@@ -19,6 +21,9 @@ export class UserCardComponent implements OnInit {
 
   changeStatus(){
     this.activated = !this.activated
+    this.userstatus = !this.userstatus
+    this.active.emit({status : this.userstatus, name: this.name})
+    
    }
 
 }

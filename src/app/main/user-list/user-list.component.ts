@@ -7,6 +7,8 @@ import { UserModel } from 'src/models/UserModel';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
+  
+  
 
   baseUsers: UserModel[] = [
     {
@@ -101,5 +103,10 @@ export class UserListComponent implements OnInit {
       this.status = 'active'
     }
   } 
+
+
+  statusChange(eventData: {status: boolean, name: string}){
+    console.log(eventData)
+  }
 
 }

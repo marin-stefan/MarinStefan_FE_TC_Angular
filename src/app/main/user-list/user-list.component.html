@@ -1,12 +1,14 @@
 <div class="sortBar">
-    <button (click)="genderSort()">Male/Female</button>
-    <button (click)="hideDisplayNonActive()">Hide/display non-active</button>
+    <button (click)="genderSort()" mat-raised-button color="primary">Male/Female</button>
+    <button (click)="hideDisplayNonActive()" mat-raised-button color="primary">Hide/display non-active</button>
+
 </div>
 
 <div class="userList">
     <div *ngFor="let user of users" >
         <div> 
             <app-user-card
+                (active)="statusChange($event)"
                 [name]="user.name" 
                 [age]="user.age" 
                 [gender]="user.gender" 
