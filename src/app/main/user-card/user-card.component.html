@@ -1,0 +1,10 @@
+<div  class="userCard">
+    <p>{{name}}</p>
+    <p>{{age}}</p>
+    <p>{{gender}}</p>
+    <p *ngIf="activated; else otherCase">Status : Active</p>
+    <ng-template #otherCase>
+        <p>Status : non-Active</p>
+    </ng-template>
+    <button (click)="changeStatus()">Change Status</button>
+</div>

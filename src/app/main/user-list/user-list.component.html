@@ -1,0 +1,18 @@
+<div class="sortBar">
+    <button (click)="genderSort()">Male/Female</button>
+    <button (click)="hideDisplayNonActive()">Hide/display non-active</button>
+</div>
+
+<div class="userList">
+    <div *ngFor="let user of users" >
+        <div> 
+            <app-user-card
+                [name]="user.name" 
+                [age]="user.age" 
+                [gender]="user.gender" 
+                [activated]="user.activated">
+            </app-user-card> 
+        </div>
+    </div>
+</div>
+
