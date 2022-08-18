@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { UserModel } from 'src/models/UserModel';
 
 @Component({
   selector: 'app-user-card',
@@ -7,23 +8,17 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class UserCardComponent implements OnInit {
 
-  @Input() name:string ; 
-  @Input() age:number ;
-  @Input() gender:string;
-  @Input() activated: boolean ;
+  @Input() user: UserModel;
+  @Input() index: number;
 
-  @Output() active = new EventEmitter<{status:boolean,name: string}>();
-  userstatus : boolean
+  @Output() activeStatus = new EventEmitter<{status: boolean, id: number, index: number}>();
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  changeStatus(){
-    this.activated = !this.activated
-    this.userstatus = !this.userstatus
-    this.active.emit({status : this.userstatus, name: this.name})
-    
+  changeStatus():void{
+    this.activeStatus.emit({status : this.user.activated, id: this.user.id, index: this.index})
    }
 
 }

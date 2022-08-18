@@ -1,10 +1,7 @@
-<div  class="userCard">
-    <p>{{name}}</p>
-    <p>{{age}}</p>
-    <p>{{gender}}</p>
-    <p *ngIf="activated; else otherCase">Status : Active</p>
-    <ng-template #otherCase>
-        <p>Status : non-Active</p>
-    </ng-template>
-    <button (click)="changeStatus()" mat-flat-button color="accent">Change Status</button>
-</div>
+<p>{{ user.name }}</p>
+<p>{{ user.age }}</p>
+<p>{{ user.gender }}</p>
+<p>{{ user.activated ? "Status : Active" : "Status : non-Active" }}</p>
+<button (click)="changeStatus()" mat-flat-button color="accent">
+  Change Status
+</button>

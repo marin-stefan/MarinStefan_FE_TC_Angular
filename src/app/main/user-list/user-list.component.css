@@ -5,7 +5,26 @@
     justify-content: space-between;
 }
 
-button {
+.userCard{
+    border:1px solid red;
+    background-color:aliceblue;
+    width: 200px;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 10px;   
+}
+
+button{
     margin-left: 10px;;
 }
 
+.mat-button-toggle{
+    background-color: #7B1FA2;
+    color: rgba(255,255,255,.7);
+}
+
+.mat-button-toggle-checked {
+    background-color: #65108a;
+    color: white;
+    font-weight: 500;
+}

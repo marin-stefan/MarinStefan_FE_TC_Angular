@@ -4,6 +4,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserCardComponent } from './user-card/user-card.component';
 import { SortBarComponent } from './sort-bar/sort-bar.component';
 import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 
@@ -14,7 +15,9 @@ import {MatButtonModule} from '@angular/material/button';
     SortBarComponent
   ],
   imports: [
-    CommonModule, MatButtonModule
+    CommonModule, 
+    MatButtonModule,
+    MatButtonToggleModule
   ],
   exports: [
     UserListComponent, UserCardComponent, SortBarComponent
