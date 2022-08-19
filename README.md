@@ -16,4 +16,9 @@
 * - Added button for each usercard to alter the status Active/non-Active - which is displayed also.
 * - Added Angular Material to project.
 
+### task 2 - Add shared service module
+
+* - Create Shared Service module to host array of users.
+* - Make UserList component a smart component. 
+* - UserList component should get data from shared and pass it to child components.
 
