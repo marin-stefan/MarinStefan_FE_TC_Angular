@@ -1,1 +1,3 @@
-<button (click)="changeBtnColor(color)" (click)="cardColor(activate)" [ngStyle]="{'background-color': btnColor}">{{color || activate}}</button>
+<button [ngClass]="color">
+    <span>{{text}}</span>
+</button>

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { UsersService } from 'src/app/shared/users.service';
 import { UserModel } from 'src/models/UserModel';
+import { UserCardComponent } from '../user-card/user-card.component';
 
 @Component({
   selector: 'app-user-list-shell',
@@ -11,7 +12,8 @@ export class UserListShellComponent implements OnInit {
   
   public baseUsers: UserModel[];
   public status: boolean = false;
-  public users: UserModel[]
+  public users: UserModel[];
+  @ViewChildren(UserCardComponent) viewChildren: QueryList<UserCardComponent>;
   
   constructor(private _usersService: UsersService) { }
   
@@ -49,4 +51,14 @@ export class UserListShellComponent implements OnInit {
     }
   }
 
+  areAllUsersActive():boolean{
+    return this.users.every(u => u.activated)
+  }
+
+  activateCards():void{
+    this.areAllUsersActive()
+      ? this.viewChildren.toArray().forEach(userCard => userCard.changeStatus())
+      : this.viewChildren.toArray().forEach(userCard => userCard.user.activated = true)
+  }
+ 
 }

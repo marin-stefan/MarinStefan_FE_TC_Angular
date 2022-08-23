@@ -4,20 +4,19 @@
         <mat-button-toggle value="male">Male</mat-button-toggle>
         <mat-button-toggle value="female">Female</mat-button-toggle>
     </mat-button-toggle-group>
-    <button (click)="hideDisplayNonActive()" mat-raised-button color="primary">Hide/display non-active</button>
-    <app-my-button [color]="'red'"></app-my-button>
-    <app-my-button [color]="'green'"></app-my-button>
-    <app-my-button [color]="'orange'"></app-my-button>
-    <app-my-button
-        [activate]="'activate'">
-        (cardColorChange)="cardColor(activate)"
-    </app-my-button>
+    <button (click)="hideDisplayNonActive()" mat-raised-button color="primary">
+        <span>{{status?'show non-active':'hide non-active'}}</span>
+    </button>
+    <app-my-button color="cancel" text="Red Button"></app-my-button>
+    <app-my-button color="submit" text="Green Button"></app-my-button>
+    <app-my-button color="warning" text="Orange Button"></app-my-button>
+    <app-my-button (click)="activateCards()" [text]="areAllUsersActive()? 'De-Activate all':'Activate all'"></app-my-button>
 </div>
 
 <div class="userList">
     <ng-container *ngFor="let user of users; let i = index">
         <app-user-card
-            class="userCard"
+            [ngClass]="{'userCard':true , 'gray': !user.activated }"
             (activeStatus)="statusChange($event)"
             [user]='user'
             [index]='i'>

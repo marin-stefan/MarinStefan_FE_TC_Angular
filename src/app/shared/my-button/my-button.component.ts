@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-my-button',
@@ -8,27 +8,27 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 export class MyButtonComponent implements OnInit {
 
   @Input() color:string;
-  @Input() activate:string;
+  @Input() text:string;
 
-  @Output() cardColorChange = new EventEmitter<{activate:string}>();
-
- 
-  btnColor: string = "";
+  public colorClass:string;
 
   constructor() { }
 
   ngOnInit(): void {
+    switch (this.color) {
+      case 'cancel':
+        this.colorClass = 'cancel';
+        break;
+      case 'submit':
+        this.colorClass = 'submit';
+        break;
+      case 'warning':
+        this.colorClass = 'warning';
+        break;
+      default:
+        break;
+    }
   }
-
-  changeBtnColor(color:string):void{
-    this.btnColor = this.btnColor === "" ? color : ""
-  }
-
-  cardColor(activate:string):void{
-    this.cardColorChange.emit({activate:activate})
-    console.log("bla")
-  }
-  
 
 
 }
