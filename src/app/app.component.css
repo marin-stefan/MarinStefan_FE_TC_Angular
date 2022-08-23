@@ -1,0 +1,25 @@
+header {
+    display: flex;
+    justify-content: space-around;
+    background-color: aliceblue;
+    height: 100px;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-top: 10px;
+}
+
+footer {
+    border-radius: 15px;;
+    background-color: azure;
+    padding-top: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-top: 10px;
+}
+
+main {
+    border-radius: 15px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-top: 10px;;
+}
+
