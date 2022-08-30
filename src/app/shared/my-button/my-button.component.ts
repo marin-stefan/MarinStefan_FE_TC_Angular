@@ -28,7 +28,6 @@ export class MyButtonComponent implements OnInit {
       default:
         break;
     }
-  }
-
+  };
 
 }

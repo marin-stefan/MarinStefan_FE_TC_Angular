@@ -1,0 +1,43 @@
+<div class="sortBar">
+    <mat-button-toggle-group (change)="genderSort($event)" appearance="legacy" name="genderSelection" aria-label="Gender Selection">
+        <mat-button-toggle value="all" checked="true">All</mat-button-toggle>
+        <mat-button-toggle value="male">Male</mat-button-toggle>
+        <mat-button-toggle value="female">Female</mat-button-toggle>
+    </mat-button-toggle-group>
+    <button (click)="hideDisplayNonActive()" mat-raised-button color="primary">
+        <span>{{status?'show non-active':'hide non-active'}}</span>
+    </button>
+    <app-my-button color="cancel" text="Red Button"></app-my-button>
+    <app-my-button color="submit" text="Green Button"></app-my-button>
+    <app-my-button color="warning" text="Orange Button"></app-my-button>
+    <app-my-button (click)="activateCards()" [text]="areAllUsersActive()? 'De-Activate all users':'Activate all users'"></app-my-button>
+</div>
+
+<div class="userList">
+    
+    <ng-container *ngFor="let card of cards; let i = index">
+        <ng-container *ngIf="showHiddenCards; else showOnlyActive" >
+            <app-card-template
+                [ngClass]="{'userCard':true , 'gray':!card.status}"
+                [info]="card"
+                [index]="i">
+                <h2 title >User Details</h2>
+                <mat-icon icon >elderly</mat-icon>
+                <app-my-button button (click)="statusChange({status: card.status, id: card.id, index: i})" [text]="card.status ? 'de-activate': 'activate'"></app-my-button>
+                <p status>{{card.status ? "Status : Active" : "Status : non-Active" }}</p>
+            </app-card-template>
+        </ng-container>
+        <ng-template #showOnlyActive >
+            <app-card-template *ngIf="card.status"
+                [ngClass]="{'userCard':true , 'gray':!card.status}"
+                [info]="card"
+                [index]="i">
+            </app-card-template>
+        </ng-template>
+    </ng-container>
+</div>
+
+
+
+
+

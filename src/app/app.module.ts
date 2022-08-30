@@ -4,13 +4,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { HeaderModule } from './header/header.module';
 import { FooterModule } from './footer/footer.module';
-import { MainModule } from './main/main.module';
 import { FormsModule } from '@angular/forms';
-import { UsersService } from './shared/users.service';
-
+import { UserService } from './main/users/user.service';
+import { VehicleService } from './main/vehicles/vehicle.service';
 import {MatButtonModule} from '@angular/material/button';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatIconModule} from '@angular/material/icon';
+import { UsersModule } from './main/users/users.module';
+import { VehiclesModule } from './main/vehicles/vehicles.module';
 
 
 @NgModule({
@@ -20,15 +20,15 @@ import {MatIconModule} from '@angular/material/icon';
   imports: [
     BrowserModule, 
     HeaderModule, 
-    MainModule, 
     FooterModule, 
     FormsModule, 
     BrowserAnimationsModule, 
     MatButtonModule, 
-    MatButtonToggleModule,
     MatIconModule,
+    UsersModule,
+    VehiclesModule
   ],
-  providers: [UsersService],
+  providers: [UserService, VehicleService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

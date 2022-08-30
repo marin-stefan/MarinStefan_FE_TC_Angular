@@ -1,0 +1,21 @@
+.vehicleList{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color:cadetblue;
+}
+
+.vehicleCard{
+    text-align: end;
+    border: 1px solid orange;
+    background-color:aliceblue;
+    width: 200px;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 10px;   
+}
+
+h2 {
+    text-align: center;
+}

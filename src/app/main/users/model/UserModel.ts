@@ -1,7 +1,7 @@
 export class UserModel {
     id: number;
     name: string ;
-    age: number ;
+    age: string ;
     gender: string ;
     activated: boolean ;
 }

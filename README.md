@@ -16,8 +16,9 @@
 * - Added button for each usercard to alter the status Active/non-Active - which is displayed also.
 * - Added Angular Material to project.
 
-### task 2 - Add shared service module
+#### task 2 - Add shared service module
 
+* - Added Angular material on task01.
 * - Created Shared Service module to host array of users.
 * - Modified UserList component into a smart component. 
 * - UserList component gets data from shared module and passes it to child components.
@@ -26,3 +27,13 @@
 * - Added another button component to Userlist component that activates / de-activates all cards.(background will turn gray for each card).
 * - Added Changedetection.onPush to UserCard component.
 
+#### task 3 - Add Vehicle List module and refactor Card component 
+
+* - Created Vehicle list module.
+* - Refactored card to be generic template for both User and Vehicle.
+* - Created a Shared Service module that handles data with UserService and VehicleService files.
+* - Created a generic Info model for cards.
+* - Maped data to Info model both for User and for Vehicle in service module to be fetched as needed.
+* - Used Ng-Content to display/not display buttons on cards.
+* - Used Ng-Content to display distinct title for User or vehicle card and also distinct icon.
+* - Separated content into folders and modules.
