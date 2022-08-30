@@ -1,0 +1,13 @@
+
+
+<div class="vehicleList">
+    <ng-container *ngFor="let card of cards; let i = index">
+        <app-card-template
+            [ngClass]="{'vehicleCard':true }"
+            [info]="card"
+            [index]="i">
+            <h2 title>Vehicle Details</h2>
+            <mat-icon icon >electric_car</mat-icon>
+        </app-card-template>
+    </ng-container>
+</div>
