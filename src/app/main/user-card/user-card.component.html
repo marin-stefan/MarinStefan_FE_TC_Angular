@@ -1,7 +1,14 @@
-<p>{{ user.name }}</p>
-<p>{{ user.age }}</p>
-<p>{{ user.gender }}</p>
-<p>{{ user.activated ? "Status : Active" : "Status : non-Active" }}</p>
-<button (click)="changeStatus()" mat-flat-button color="accent">
-  Change Status
-</button>
+
+  <p>{{ user.name }}</p>
+  <p>{{ user.age }}</p>
+  <p>{{ user.gender }}</p>
+  <p>{{ user.activated ? "Status : Active" : "Status : non-Active" }}</p>
+  <button (click)="changeStatus()" mat-flat-button color="accent">
+    Change Status
+  </button>
+  <br>
+  <br>
+  <app-my-button (click)="changeStatus()" [text]="user.activated ? 'activated': 'non-active'"></app-my-button>
+
+
+

@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { UserModel } from 'src/models/UserModel';
 
 @Component({
   selector: 'app-user-card',
   templateUrl: './user-card.component.html',
-  styleUrls: ['./user-card.component.css']
+  styleUrls: ['./user-card.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserCardComponent implements OnInit {
 
@@ -19,6 +20,8 @@ export class UserCardComponent implements OnInit {
 
   changeStatus():void{
     this.activeStatus.emit({status : this.user.activated, id: this.user.id, index: this.index})
-   }
+  }
+
+  
 
 }
