@@ -5,7 +5,7 @@ export class CardModel {
     age: string;
     property: string; 
     status: boolean;
-    specificInfo: string;
-    specificInfo2: string;
-    specificInfo3: string;  
+    specificInfo: string;   // company for user and register number for vehicle
+    specificInfo2: string;  // department for user
+    specificInfo3: string;  // email for user
 }
