@@ -37,3 +37,18 @@
 * - Used Ng-Content to display/not display buttons on cards.
 * - Used Ng-Content to display distinct title for User or vehicle card and also distinct icon.
 * - Separated content into folders and modules.
+
+#### task 4 - Add a new page called add-new user and update Header component
+
+* - Added pages module.
+* - Added routing.
+* - Homepage displays Users list and Vehicle list.
+* - Added new page for add new user form.
+* - Added a Header component with navbar with links to pages.
+* - Form is Model-Driven.
+* - Values from Form are collected and sent to User service to add new user to user array.
+* - After form Submit we redirect to homepage where we have the list of users displayed.
+* - List of users gets updated with the new added user.
+* - User-list-shel becomes users-shell and vehicle-list-shell becomes vehicles-shell.
+* - Updated User Model and details of each users from the list of users.
+

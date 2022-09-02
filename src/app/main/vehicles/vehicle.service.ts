@@ -87,7 +87,9 @@ export class VehicleService {
         age: vehicle.releaseYear, 
         property: vehicle.color,
         status: null, 
-        specificInfo: vehicle.carNumber
+        specificInfo: vehicle.carNumber,
+        specificInfo2: null,
+        specificInfo3: null
       }
     })
     return mappedVehicles

@@ -1,9 +1,11 @@
 export class CardModel {
     id: number;
-    type:string;
+    type: string;
     displayName: string;
     age: string;
     property: string; 
     status: boolean;
-    specificInfo: string ;  
+    specificInfo: string;
+    specificInfo2: string;
+    specificInfo3: string;  
 }

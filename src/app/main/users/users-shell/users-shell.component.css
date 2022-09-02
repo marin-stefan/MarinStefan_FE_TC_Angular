@@ -38,3 +38,8 @@ button{
 h2 {
     text-align: center;
 }
+
+
+.mat-raised-button:disabled{
+    background-color:#7B1FA2;
+}

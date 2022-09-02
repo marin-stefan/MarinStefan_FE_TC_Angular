@@ -4,11 +4,11 @@ import { CardModel } from 'src/app/shared/card-template/model/cardModel';
 import { CardTemplateComponent } from 'src/app/shared/card-template/card-template.component';
 
 @Component({
-  selector: 'app-users-list-shell',
-  templateUrl: './users-list-shell.component.html',
-  styleUrls: ['./users-list-shell.component.css']
+  selector: 'app-users-shell',
+  templateUrl: './users-shell.component.html',
+  styleUrls: ['./users-shell.component.css']
 })
-export class UsersListShellComponent implements OnInit {
+export class UsersShellComponent implements OnInit {
 
   public showHiddenCards = true;
   public status: boolean = false;
@@ -19,13 +19,14 @@ export class UsersListShellComponent implements OnInit {
   
   constructor(private _userService: UserService) { };
 
-  ngOnInit(): void {
-    this.baseCards = this._userService.mapUsers(); 
-    this.cards = this._userService.mapUsers();  
+  ngOnInit():void {
+    this.baseCards = this._userService.mapUsers(); // main copy from bd ..we're altering this..not the db
+    this.cards = JSON.parse(JSON.stringify(this.baseCards));  //the copy of the bd to send to the html
   };
 
-  hideDisplayNonActive(){
+  hideDisplayNonActive():void{
     this.showHiddenCards = !this.showHiddenCards;
+    this.status = !this.status
   };
 
   statusChange(eventData: {status: boolean, id: number, index: number}):void{
@@ -39,11 +40,11 @@ export class UsersListShellComponent implements OnInit {
         break;
       case 'male':
         this.cards = JSON.parse(JSON.stringify(this.baseCards));
-        this.cards = this.cards.filter((card:CardModel)=> card.property === 'male');
+        this.cards = this.cards.filter((card:CardModel)=> card.property === 'Gender: male');
         break;
       case 'female':
         this.cards = JSON.parse(JSON.stringify(this.baseCards));
-        this.cards = this.cards.filter((card:CardModel)=> card.property === 'female');
+        this.cards = this.cards.filter((card:CardModel)=> card.property === 'Gender: female');
         break;
     }
   };

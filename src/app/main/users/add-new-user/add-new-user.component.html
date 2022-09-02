@@ -1,0 +1,48 @@
+
+<div class="addNewUserHost">
+    <form [formGroup]="reactiveForm" class="addUserBox">
+        <div class="newUserformDesign">
+            <fieldset>
+                <legend>First Name:</legend>
+                <input type="text" name="firstName" formControlName="firstName">
+            </fieldset><br>
+            <fieldset>
+                <legend>Last Name:</legend>
+                <input type="text" name="lastName" formControlName="lastName">
+            </fieldset><br>
+            <fieldset>
+                <legend>Age: </legend>
+                <input type="number" name="age" formControlName="age">
+            </fieldset><br>
+            <fieldset>
+                <legend>Company:</legend>
+                <input type="text" name="company" formControlName="company">
+            </fieldset><br>
+        </div>
+        <div class="newUserformDesign">
+            <fieldset>
+                <legend>Department: </legend>
+                <select name="department" formControlName="department">
+                    <option value="frontEnd">Front-End</option>
+                    <option value="backEnd">Back-End</option>
+                </select>
+            </fieldset><br>
+            <fieldset>
+                <legend>Select Gender: </legend>
+                <input type="radio" name="gender" value="male" formControlName="gender" checked>
+                <label for="male">Male</label><br>
+                <input type="radio" name="gender" value="female" formControlName="gender">
+                <label for="female">Female</label><br>
+                <input type="radio" name="gender" value="alien" formControlName="gender">
+                <label for="alien">Alien</label>
+            </fieldset><br>
+            <fieldset>
+                <legend>Status: </legend>
+                <input type="checkbox" name="activated" formControlName="activated" checked>
+                <label for="activated">Active</label>
+            </fieldset><br>
+            <button type="submit" (click)="saveUser()" routerLink="/home">Add User</button>
+        </div>
+    </form>
+</div>
+
