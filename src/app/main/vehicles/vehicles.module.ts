@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VehiclesListShellComponent } from './vehicles-list-shell/vehicles-list-shell.component';
+import { VehiclesShellComponent } from './vehicles-shell/vehicles-shell.component';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -8,13 +8,13 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
-    VehiclesListShellComponent
+    VehiclesShellComponent
   ],
   imports: [
     CommonModule, MatIconModule, SharedModule
   ],
   exports: [
-    VehiclesListShellComponent
+    VehiclesShellComponent
   ]
 })
 export class VehiclesModule { }

@@ -1,0 +1,18 @@
+.navBar{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgb(198, 240, 226);
+    padding: 5px;
+}
+
+.navBarElem{
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: cornsilk;
+    border-radius: 10px;;
+}
+
+a{
+    text-decoration: none;
+}
