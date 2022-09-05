@@ -8,6 +8,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { AddNewUserComponent } from './add-new-user/add-new-user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -16,7 +17,7 @@ import { RouterModule } from '@angular/router';
     AddNewUserComponent
   ],
   imports: [
-    CommonModule, MatButtonModule, MatButtonToggleModule, MatIconModule, SharedModule, FormsModule, ReactiveFormsModule , RouterModule
+    CommonModule, MatButtonModule, MatButtonToggleModule, MatIconModule, SharedModule, FormsModule, ReactiveFormsModule , RouterModule, MatProgressSpinnerModule
   ],
   exports: [
     UsersShellComponent, AddNewUserComponent

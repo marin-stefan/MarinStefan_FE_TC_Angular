@@ -16,6 +16,7 @@ import { PageNotFoundComponent } from './main/pages/page-not-found/page-not-foun
 import { HomePageComponent } from './main/pages/home-page/home-page.component';
 import { PagesModule } from './main/pages/pages.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 const appRoute: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -41,6 +42,7 @@ const appRoute: Routes = [
     PagesModule,
     UsersModule,
     VehiclesModule,
+    MatProgressSpinnerModule
   ],
   exports: [RouterModule],
   providers: [UserService, VehicleService ],

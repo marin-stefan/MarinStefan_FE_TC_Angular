@@ -7,7 +7,7 @@ import { UserModel } from './model/UserModel';
 })
 export class UserService {
 
-  DbUsers: UserModel[] = [
+  dbUsers: UserModel[] = [
     {
       id: 1,
       firstName : 'John',
@@ -16,7 +16,7 @@ export class UserService {
       company: 'Microsoft',
       department: 'Front-End',
       gender : 'male',
-      email : 'JohnDoe@gmail.com',
+      email : 'johndoe@gmail.com',
       activated : true
     },
     {
@@ -27,7 +27,7 @@ export class UserService {
       company: 'Universal',
       department: 'Back-End',
       gender : 'male',
-      email: 'MichaelJackson@gmail.com',
+      email: 'michaeljackson@gmail.com',
       activated : true
     },
     {
@@ -38,7 +38,7 @@ export class UserService {
       company: 'IsSoft',
       department: 'Front-End',
       gender : 'male',
-      email: 'PhilBuzz@gmail.com',
+      email: 'philbuzz@gmail.com',
       activated : true
     },
     {
@@ -49,7 +49,7 @@ export class UserService {
       company:'Pink-Software',
       department:'Back-End',
       gender : 'female',
-      email: 'HannaMontana@gmail.com',
+      email: 'hannamontana@gmail.com',
       activated : false
     },
     {
@@ -89,7 +89,7 @@ export class UserService {
   constructor() { }
 
   getUsers(): UserModel[]{
-    return this.DbUsers
+    return this.dbUsers
   }
 
   mapUsers():CardModel[]{
@@ -102,17 +102,17 @@ export class UserService {
         age: "Age: " + user.age, 
         property: "Gender: " + user.gender,
         status: user.activated, 
-        specificInfo: "Company: " + user.company,
-        specificInfo2: "Department: " + user.department,
-        specificInfo3: "Email: " + user.email
+        specificInfo: "Company: " + (user.company ? user.company : ""),
+        specificInfo2: "Department: " + (user.department ? user.department : ""),
+        specificInfo3: "Email: " + (user.email ? user.email: "")
       }
     })
     return mappedUsers
   }
 
   addNewUser(newUser:UserModel):void{
-    newUser.id = (this.DbUsers.length) + 1; // adding id to the user ( for mock ...this should be handled by DB)
-    this.DbUsers.push(newUser)
+    newUser.id = (this.dbUsers.length) + 1; // adding id to the user ( for mock ...this should be handled by DB)
+    this.dbUsers.push(newUser)
   }
 
 }
