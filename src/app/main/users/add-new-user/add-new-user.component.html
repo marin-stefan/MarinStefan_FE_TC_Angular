@@ -46,8 +46,8 @@
                 <fieldset>
                     <legend>Email</legend>
                     <input type="email" name="email" formControlName="email">
-                    
-                    <mat-spinner *ngIf="userEmail.pending" [diameter]="20"></mat-spinner>
+                    <mat-spinner *ngIf="userEmail.pending" [diameter]="20" ></mat-spinner>
+                    <p *ngIf="userEmail.pending">...please wait</p>
                     <div *ngIf="userEmail.invalid && (userEmail.dirty || userEmail.touched)" class="red-text">
                         <div *ngIf="userEmail.errors?.['required'] ">
                             Please enter a vaild email adress!

@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserModel } from '../model/UserModel';
 import { UserService } from '../user.service';
-import { sharedUsers } from 'src/app/shared/sharedUsers';
 
 
 
@@ -43,7 +42,7 @@ export class AddNewUserComponent implements OnInit{
           Validators.required, 
           Validators.email,
           Validators.pattern("^[a-z0-9._%+-]+@gmail.com$")
-        ], this.checkEmailExist
+        ], this.checkEmailExist.bind(this)
       ),
       department: new FormControl('', 
         [
@@ -72,11 +71,10 @@ export class AddNewUserComponent implements OnInit{
   
   // custom async validator
   checkEmailExist(control:FormControl): Promise<any> | Observable<any>{
-    // let users = this.userService.getUsers();
-    console.log(sharedUsers)
+    let users: UserModel[] = this.userService.getUsers();
     
     let duplicateEmail = false
-    sharedUsers.map((user)=> {
+    users.map((user)=> {
       if(user.email === control.value){
         duplicateEmail = true
       }
@@ -90,7 +88,7 @@ export class AddNewUserComponent implements OnInit{
         }else {
           resolve(null)
         }
-      }, 2000)
+      }, 1000)
     });
     return response;
   }

@@ -61,5 +61,4 @@
 * - Email validator is set to have @gmail.com with Regex pattern and to be email format.
 * - Errors for each field are displayed under that certain field.
 * - Submit button si disabled untill all fields are validated.
-Async email validator to check if email exists in the mock user list, email must be unique
-
+* - Implemented async email validator to check if email is already used by another registered user.
