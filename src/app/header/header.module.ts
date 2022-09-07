@@ -1,28 +1,32 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SearchBarComponent } from './search-bar/search-bar.component';
-import { HeaderMenuComponent } from './header-menu/header-menu.component';
-import { HeaderLogoComponent } from './header-logo/header-logo.component';
-import { FormsModule } from '@angular/forms';
+import { HeaderLogoComponent } from './components/header-logo/header-logo.component';
+import { HeaderComponent } from './containers/header-shell/header.component';
 import {MatButtonModule} from '@angular/material/button';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
+import {MatIconModule} from '@angular/material/icon';
+import { HeaderMenuComponent } from './components/header-menu/header-menu.component';
+import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
-
+import { HeaderNavbarComponent } from './components/header-navbar/header-navbar.component';
 
 
 
 @NgModule({
   declarations: [
-    SearchBarComponent,
-    HeaderMenuComponent,
     HeaderLogoComponent,
-    NavBarComponent
+    HeaderComponent,
+    HeaderMenuComponent,
+    HeaderNavbarComponent,
   ],
   imports: [
-    CommonModule, FormsModule, MatButtonModule, RouterModule
+    CommonModule, 
+    MatButtonModule, 
+    MatIconModule,
+    SharedModule,
+    RouterModule
   ],
   exports: [
-    SearchBarComponent, HeaderMenuComponent, HeaderLogoComponent, NavBarComponent
+    HeaderComponent
   ]
 })
 export class HeaderModule { }

@@ -62,3 +62,21 @@
 * - Errors for each field are displayed under that certain field.
 * - Submit button si disabled untill all fields are validated.
 * - Implemented async email validator to check if email is already used by another registered user.
+
+
+#### task 6 - Add adresses component on user add page
+
+* - General folder/component/modules restrucuture.
+
+1) Add addresses component on add-user page
+2) Addresses component should be separate dumb component with its own form inside it (it should be FormArray with FormGroups inside).
+    a) Address formGroup should contains next controls: address-line(textarea), city, zip
+3) It should be possible to add as much addresses objects as I want :) (by clicking on Add button appears another row of address controls)
+4) Need to add possibility to remove any address row (remove button)
+5) Address validation:
+    a) Address-line control - required
+    b) City - not required
+    c) Zip - required if City control have some value, and not required if city control is empty. Also its should be disabled in case when City is epmty.
+6) Notice: address component is separate and dumb component, but on add-user page all forms should be combined in 1 global add-user Form
+
+You can use next: .addControl(), .removeControl(), .setValidators(), .clearValidators(), .updateValueAndValidity(), .push(), .slice()

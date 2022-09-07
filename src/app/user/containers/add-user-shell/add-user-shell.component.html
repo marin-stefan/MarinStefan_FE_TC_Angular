@@ -1,0 +1,17 @@
+<div class="addNewUserHost">
+    <form [formGroup]="reactiveForm">
+        <div class="addUserBox">
+            <div class="newUserFormDesign">
+                <app-basic-info-form 
+                [basicInfoForm]="basicInfo">
+                
+
+                </app-basic-info-form>
+                <!-- <app-addresses-info-form [addressForm]="addresses"></app-addresses-info-form> -->
+            	<button type="submit" (click)="saveUser()" [disabled]="!reactiveForm.valid">Add User</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
