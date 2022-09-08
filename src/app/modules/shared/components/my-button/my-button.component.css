@@ -1,0 +1,15 @@
+button{
+    margin-left: 10px;
+}
+
+.cancel{
+    background-color: red;
+}
+
+.submit{
+    background-color: green;
+}
+
+.warning{
+    background-color: orange;
+}

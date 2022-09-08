@@ -1,0 +1,30 @@
+.red-text{
+    color:red;
+}
+
+h4{
+    text-align: center;
+}
+
+.addressFormSection{
+    background-color: rgb(227, 229, 231);
+    width:100%;
+}
+
+.addressFormContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.removeAddress{
+    background-color: orangered;
+    height:30px;
+    border-radius: 5px;;
+    width: 100%;
+}
+
+.pink{
+    background-color: rgb(224, 165, 165);
+}
+

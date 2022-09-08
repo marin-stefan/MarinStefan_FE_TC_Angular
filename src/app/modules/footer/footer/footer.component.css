@@ -1,0 +1,18 @@
+.footer {
+    border-radius: 15px;;
+    background-color: azure;
+    padding-top: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-top: 10px;
+}
+
+.footer-info{
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-search{
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}

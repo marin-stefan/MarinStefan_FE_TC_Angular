@@ -62,3 +62,17 @@
 * - Errors for each field are displayed under that certain field.
 * - Submit button si disabled untill all fields are validated.
 * - Implemented async email validator to check if email is already used by another registered user.
+
+
+#### task 6 - Add adresses component on user add page
+
+* - General folder/component/modules restrucuture.
+* - Added Addresses component on main add user form.
+* - Added button to add another address form to the main form.
+* - Added button to each address form to be removed.
+* - Street input is a textarea with required validator.
+* - Zip is required only if city has any value, untill that city input is disabled.
+* - Moved Contact info fields into a separate dumb component form.
+* - Form inputs are split into 2 dumb components for contact info and adresses info called by the main smart user-add-form component.
+* - Each dumb component runs it's own validators.
+* - At form submit, the smart main component gets all input values and saves user and then redirects to user-list page.
