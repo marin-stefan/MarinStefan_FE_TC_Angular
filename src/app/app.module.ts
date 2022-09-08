@@ -3,8 +3,8 @@ import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { PagesModule } from './pages/pages.module';
-import { AppRoutingModule } from './app-routing/app-routing.module';
+import { PagesModule } from './modules/pages/pages.module';
+import { AppRoutingModule } from './modules/app-routing/app-routing.module';
 
 
 

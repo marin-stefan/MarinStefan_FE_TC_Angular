@@ -67,16 +67,12 @@
 #### task 6 - Add adresses component on user add page
 
 * - General folder/component/modules restrucuture.
-
-1) Add addresses component on add-user page
-2) Addresses component should be separate dumb component with its own form inside it (it should be FormArray with FormGroups inside).
-    a) Address formGroup should contains next controls: address-line(textarea), city, zip
-3) It should be possible to add as much addresses objects as I want :) (by clicking on Add button appears another row of address controls)
-4) Need to add possibility to remove any address row (remove button)
-5) Address validation:
-    a) Address-line control - required
-    b) City - not required
-    c) Zip - required if City control have some value, and not required if city control is empty. Also its should be disabled in case when City is epmty.
-6) Notice: address component is separate and dumb component, but on add-user page all forms should be combined in 1 global add-user Form
-
-You can use next: .addControl(), .removeControl(), .setValidators(), .clearValidators(), .updateValueAndValidity(), .push(), .slice()
+* - Added Addresses component on main add user form.
+* - Added button to add another address form to the main form.
+* - Added button to each address form to be removed.
+* - Street input is a textarea with required validator.
+* - Zip is required only if city has any value, untill that city input is disabled.
+* - Moved Contact info fields into a separate dumb component form.
+* - Form inputs are split into 2 dumb components for contact info and adresses info called by the main smart user-add-form component.
+* - Each dumb component runs it's own validators.
+* - At form submit, the smart main component gets all input values and saves user and then redirects to user-list page.

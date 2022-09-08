@@ -1,0 +1,31 @@
+<div class="addNewUserHost">
+    <form [formGroup]="userContactForm" (ngSubmit)="submitForm()">
+        <div class="addUserBox">
+            <div class="formSection">
+                <h2>Contact Details</h2>
+                <app-user-basic
+                    *ngFor="let childContactInfoForm of (userContactForm.get('contactInfo')['controls'])"
+                    [childContactInfoForm]="childContactInfoForm"
+                    (checkEmailEvent)="checkEmailExist($event)">
+                </app-user-basic>
+            </div>
+
+            <div class="formSection">
+                <h2>Address</h2>
+                <app-user-address
+                    *ngFor="let childAddressForm of (userContactForm.get('addresses')['controls']); let i = index"
+                    [childAddressForm]="childAddressForm"
+                    [arrayIndex]="i"
+                    (delAddressItemEvent)="delAddressItem($event)">
+                </app-user-address>
+                <button type="button" class="addAddress" (click)="addAddressItem()">+ address</button>
+            </div><br>
+            <button type="submit" [disabled]="!userContactForm.valid">Add User</button>
+            
+        </div>
+    </form>
+</div>
+
+<!-- <button type="submit" [disabled]="!userContactForm.valid">Add User</button> -->
+
+<!-- <button type="submit" (click)="saveUser()" [disabled]="!reactiveForm.valid">Add User</button> -->
