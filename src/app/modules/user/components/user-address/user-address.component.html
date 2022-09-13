@@ -1,10 +1,9 @@
 
-<form autocomplete="off" [formGroup]="childAddressForm">
-    <h4>Address no {{arrayIndex + 1}}</h4>
+<form [formGroup]="childAddressForm">
+    <!-- <h4>Address no {{arrayIndex + 1}}</h4> -->
     <div class="addressFormContainer">
-
-    
         <div class="addressFormSection">
+
             <fieldset>
                 <legend>Street:</legend>
                 <textarea name="street" formControlName="street" rows="3" cols="40"></textarea>
@@ -30,9 +29,16 @@
                     [class.pink]="!userCity.value">
                 <p *ngIf="!userCity.value">...enter city first</p>
             </fieldset><br>
+
         </div>
         <div class="addressFormSection">
-            <button type="button" class="removeAddress" (click)="deleteAddress(arrayIndex)">Del</button>
+            <button 
+                type="button" 
+                class="removeAddress" 
+                *ngIf="noOfAddresses > 1 "
+                (click)="deleteAddress(arrayIndex)">
+                    Del
+            </button>
         </div>
     </div>
 </form>

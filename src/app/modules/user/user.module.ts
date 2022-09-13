@@ -10,6 +10,7 @@ import { AddUserShellComponent } from './containers/add-user-shell/add-user-shel
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserBasicComponent } from './components/user-basic/user-basic.component';
 import { UserAddressComponent } from './components/user-address/user-address.component';
+import { EditUserShellComponent } from './containers/edit-user-shell/edit-user-shell.component';
 
 
 
@@ -19,6 +20,7 @@ import { UserAddressComponent } from './components/user-address/user-address.com
     AddUserShellComponent,
     UserBasicComponent,
     UserAddressComponent,
+    EditUserShellComponent,
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { UserAddressComponent } from './components/user-address/user-address.com
   ],
   exports: [
     UsersShellComponent,
-    AddUserShellComponent
+    AddUserShellComponent,
+    EditUserShellComponent
   ]
 })
 export class UserModule { }

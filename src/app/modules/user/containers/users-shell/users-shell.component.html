@@ -39,12 +39,13 @@
                 [info]="card"
                 [index]="i">
                 <h2 title >User Details</h2>
-                <mat-icon icon >elderly</mat-icon>
+                <mat-icon icon >account_circle</mat-icon>
                 <app-my-button 
-                    button (click)="statusChange({status: card.status, id: card.id, index: i})" 
-                    [text]="card.status ? 'de-activate': 'activate'">
+                button (click)="statusChange({status: card.status, id: card.id, index: i})" 
+                [text]="card.status ? 'de-activate': 'activate'">
                 </app-my-button>
-                <p status>{{card.status ? "Status : Active" : "Status : non-Active" }}</p>
+                <mat-icon pencil>edit</mat-icon>
+                <p status>{{card.status ? "Status : Active" : "Status : non-Active" }}</p><br>
             </app-card-template>
         </ng-container>
 

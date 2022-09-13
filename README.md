@@ -1,4 +1,4 @@
-# MarinStefanDaniel_FE_TC_ANgular_Training
+# MarinStefanDaniel_FE_TC_Angular_Training
 
 #### task 1 - Build basic Angular Project
 
@@ -75,4 +75,11 @@
 * - Moved Contact info fields into a separate dumb component form.
 * - Form inputs are split into 2 dumb components for contact info and adresses info called by the main smart user-add-form component.
 * - Each dumb component runs it's own validators.
+* - Add address field button is disabled until previous address form is valid.
+* - Delete address field button is enabled only at minimum 2 address group fields present.
+* - User can add maximim of 3 addresses.
+* - In user card all present addreses will be displayed.
 * - At form submit, the smart main component gets all input values and saves user and then redirects to user-list page.
+
+
+
