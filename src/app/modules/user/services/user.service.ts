@@ -27,7 +27,7 @@ export class UserService {
       lastName: 'Jackson',
       age: "37",
       company: 'Universal',
-      department: 'Back-End',
+      department: 'backEnd',
       gender : 'male',
       email: 'michaeljackson@gmail.com',
       address : '123 hill Road, Dallas, 65432',
@@ -39,7 +39,7 @@ export class UserService {
       lastName: 'Buzz',
       age: "21",
       company: 'IsSoft',
-      department: 'Front-End',
+      department: 'frontEnd',
       gender : 'male',
       email: 'philbuzz@gmail.com',
       address : '123 hill Road, Dallas, 65432',
@@ -51,7 +51,7 @@ export class UserService {
       lastName: 'Montana',
       age : "33",
       company:'Pink-Software',
-      department:'Back-End',
+      department:'backEnd',
       gender : 'female',
       email: 'hannamontana@gmail.com',
       address : '123 hill Road, Dallas, 65432',
@@ -62,10 +62,10 @@ export class UserService {
       firstName: 'Nobody',
       lastName: 'Particular',
       age: "25",
-      company: '',
-      department: '',
+      company: 'Red-Software',
+      department: 'frontEnd',
       gender : 'male',
-      email: 'NobodyParticular@gmail.com',
+      email: 'nobodyparticular@gmail.com',
       address : '123 hill Road, Dallas, 65432',
       activated : false
     }
@@ -104,11 +104,31 @@ export class UserService {
     this.dbUsers.push(newUser)
   }
 
+  editUser(user:UserModel):void{
+    for (let i = 0; i<this.dbUsers.length; i++){
+      if(user.id === this.dbUsers[i].id){
+        this.dbUsers[i]=user
+      }
+    }
+  }
+
   checkDuplicateEmail(email:string):boolean{
     let users: UserModel[] = this.getUsers();
     let response = false
     users.map((user:UserModel)=>{
       if(user.email === email){
+        response = true
+      } 
+    })
+    return response
+  }
+
+  checkDuplicateEmailatEdit(email:string, id:number):boolean{
+    let users: UserModel[] = this.getUsers();
+    const targetUser = (users.filter((user)=>user.id === id))[0]
+    let response = false
+    users.map((user:UserModel)=>{
+      if((user.email === email) && (user.id !== targetUser.id)){
         response = true
       } 
     })

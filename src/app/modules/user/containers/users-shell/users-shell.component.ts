@@ -2,6 +2,7 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { CardTemplateComponent } from 'src/app/modules/shared/components/card-template/card-template.component';
 import { CardModel } from 'src/app/modules/shared/interfaces/card-model';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-shell',
@@ -17,7 +18,10 @@ export class UsersShellComponent implements OnInit {
 
   @ViewChildren(CardTemplateComponent) viewChildren: QueryList<CardTemplateComponent>
 
-  constructor(private _userService: UserService) { }
+  constructor(
+    private _userService: UserService,
+    private _router: Router
+    ) { }
 
   ngOnInit(): void {
     this.baseCards = this._userService.mapUsers(); // main copy from bd ..we're altering this..not the db
@@ -64,4 +68,20 @@ export class UsersShellComponent implements OnInit {
       : this.viewChildren.toArray().forEach(userCard => userCard.info.status = true)
   };
 
+
+  // at pencil icon click we redirect to the edit-user page of the user with id userId
+  public goToEditPage(userId:number){
+    this._router.navigateByUrl('/edit-user/'+ userId)
+    // this._router.navigate[('/edit-user/' + userId)]
+  }
+
 }
+
+
+
+
+
+
+
+
+

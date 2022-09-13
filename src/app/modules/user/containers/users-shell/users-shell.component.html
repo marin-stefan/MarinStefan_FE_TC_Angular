@@ -44,7 +44,7 @@
                 button (click)="statusChange({status: card.status, id: card.id, index: i})" 
                 [text]="card.status ? 'de-activate': 'activate'">
                 </app-my-button>
-                <mat-icon pencil>edit</mat-icon>
+                <mat-icon pencil (click)="goToEditPage(card.id)">edit</mat-icon>
                 <p status>{{card.status ? "Status : Active" : "Status : non-Active" }}</p><br>
             </app-card-template>
         </ng-container>
