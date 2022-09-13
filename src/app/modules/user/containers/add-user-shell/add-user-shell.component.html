@@ -3,24 +3,44 @@
         <div class="addUserBox">
             <div class="formSection">
                 <h2>Contact Details</h2>
-                <app-user-basic
-                    *ngFor="let childContactInfoForm of (userContactForm.get('contactInfo')['controls'])"
+                <!-- <app-user-basic
+                    *ngFor="let childContactInfoForm of (userContactForm?.get('contactInfo')['controls']) as FormArray"
                     [childContactInfoForm]="childContactInfoForm"
-                    (checkEmailEvent)="checkEmailExist($event)">
-                </app-user-basic>
+                    (checkEmailEvent)="checkEmailExist($event)"
+                    [emailDuplicated]="emailStatus">
+                </app-user-basic> -->
+                <app-user-basic formGroupName="contactInfo"></app-user-basic>
             </div>
 
             <div class="formSection">
                 <h2>Address</h2>
                 <app-user-address
-                    *ngFor="let childAddressForm of (userContactForm.get('addresses')['controls']); let i = index"
+                    *ngFor="let childAddressForm of (userContactForm?.get('addresses')['controls']) as FormArray; let i = index"
                     [childAddressForm]="childAddressForm"
                     [arrayIndex]="i"
+                    [noOfAddresses]="userContactForm.get('addresses').value.length"
                     (delAddressItemEvent)="delAddressItem($event)">
                 </app-user-address>
-                <button type="button" class="addAddress" (click)="addAddressItem()">+ address</button>
-            </div><br>
-            <button type="submit" [disabled]="!userContactForm.valid">Add User</button>
+                <!-- <app-user-address formGroupName="addresses"></app-user-address> -->
+                <button
+                    *ngIf="userContactForm?.get('addresses').value.length < 3"
+                    type="button"
+                    class="addAddress"
+                    [disabled]="!userContactForm.get('addresses')?.valid"
+                    (click)="addAddressItem()">
+                    Add Address
+                </button>
+                <span
+                *ngIf="userContactForm?.get('addresses').value.length === 3">
+                    You can add only maximum 3 addresses
+                </span><br>
+                <button 
+                    type="submit" 
+                    [disabled]="!userContactForm?.valid">
+                    Add User
+                </button>
+            </div>
+            <!-- <pre>{{userContactForm.value | json}}</pre> -->
             
         </div>
     </form>

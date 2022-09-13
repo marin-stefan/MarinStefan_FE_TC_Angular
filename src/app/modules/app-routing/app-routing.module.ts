@@ -11,9 +11,9 @@ import { VehiclesPageComponent } from '../pages/components/vehicles-page/vehicle
 //setting routes
 const appRoute: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'home', component: UsersPageComponent},  // temporarily set to userlist page
+  {path: 'home', component: HomepageComponent},  // temporarily set to userlist page
   {path: 'add-user', component: AddUserPageComponent},
-  {path: 'edit-user', component: EditUserPageComponent},
+  {path: 'edit-user/:id', component: EditUserPageComponent},
   {path: 'users', component: UsersPageComponent},
   {path: 'vehicles', component: VehiclesPageComponent},
   {path: '**', component: Page404Component}

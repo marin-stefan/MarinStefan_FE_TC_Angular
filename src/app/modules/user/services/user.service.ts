@@ -104,4 +104,15 @@ export class UserService {
     this.dbUsers.push(newUser)
   }
 
+  checkDuplicateEmail(email:string):boolean{
+    let users: UserModel[] = this.getUsers();
+    let response = false
+    users.map((user:UserModel)=>{
+      if(user.email === email){
+        response = true
+      } 
+    })
+    return response
+  }
+
 }
