@@ -24,8 +24,8 @@ export class AddUserShellComponent implements OnInit {
 
   ngOnInit(): void {
     this.generateUserContactForm();
-    console.log(this.userContactForm.controls['contactInfo'].value)
-    console.log(this.userContactForm?.get('addresses').value)
+    // console.log(this.userContactForm.controls['contactInfo'].value)
+    // console.log(this.userContactForm?.get('addresses').value)
   };
 
  
@@ -105,7 +105,7 @@ export class AddUserShellComponent implements OnInit {
     let contactAddressArray = this.userContactForm.value.addresses
 
     let newUser:UserModel = {
-      id: 30 ,
+      id: 99999 , // passing id just to match the UserModel ... iser service adds it's own corect id to the Db users array
       firstName: contactInfo.firstName ,
       lastName: contactInfo.lastName ,
       age: contactInfo.age ,

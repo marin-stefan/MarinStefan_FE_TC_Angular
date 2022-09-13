@@ -82,4 +82,17 @@
 * - At form submit, the smart main component gets all input values and saves user and then redirects to user-list page.
 
 
+#### task 7 - add edit user smart component 
+
+* - Created edit-user-shell smart component as container.
+* - In edit-user component we re-used basic and address dumb components.
+* - Used url with params to handle userId property to get/save info for certain user.
+* - At users page on each user card the pencil icon redirects to that certain user's edit-page form.
+* - At edit-user form data for the user is pre-filled with patchValue().
+* - Submit button on edit-user form saves the changes and redirects to users page which displays new changed info.
+* - Added comments for fewer headaches further on.
+
+
+
+
 

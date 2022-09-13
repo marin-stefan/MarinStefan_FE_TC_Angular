@@ -1,1 +1,22 @@
-<p>edit-user-shell works!</p>
+<div class="editUserHost">
+    <form [formGroup]="userContactForm" (ngSubmit)="submitChanges()">
+        <div class="editUserBox">
+
+            <div class="formSection">
+                <h2>Contact Details</h2>
+                <app-user-basic formGroupName="contactInfo"></app-user-basic>
+            </div>
+
+            <div class="formSection">
+                <h2>Address</h2>
+                <!-- <app-user-address></app-user-address> -->
+                <button 
+                    type="submit" 
+                    [disabled]="!userContactForm?.valid">
+                    Save Changes
+                </button>
+            </div>
+
+        </div>
+    </form>
+</div>
