@@ -1,0 +1,46 @@
+<div class="registerBoxHost">
+    <form [formGroup]="registerForm" (ngSubmit)="submitRegisterForm()">
+        <div class="registerBox">
+
+            <h2>Register</h2><br>
+
+            <fieldset>
+                <legend>Username:</legend>
+                <input type="text" name="userName" formControlName="userName">
+                <div *ngIf="userUserName.invalid && (userUserName.dirty || userUserName.touched)" class="red-text">
+                    <div *ngIf="userUserName.errors?.['required']">
+                        Enter your username please
+                    </div>
+                </div>
+            </fieldset><br>
+            <fieldset>
+                <legend>Password:</legend>
+                <input type="password" name="userPass" formControlName="userPass">
+                <div *ngIf="userUserPass.invalid && (userUserPass.dirty || userUserPass.touched)" class="red-text">
+                    <div *ngIf="userUserPass.errors?.['required']">
+                        Enter your password please
+                    </div>
+                </div>
+            </fieldset><br>
+            <fieldset>
+                <legend>Confirm Password:</legend>
+                <input type="password" name="userPassConfirm" formControlName="userPassConfirm">
+                <div *ngIf="userUserPassConfirm.invalid && (userUserPassConfirm.dirty || userUserPassConfirm.touched)" class="red-text">
+                    <div *ngIf="userUserPassConfirm.errors?.['required']">
+                        Enter your password please
+                    </div>
+                    <div *ngIf="userUserPassConfirm.errors?.['passNotAllowed']">
+                        This password does not match!
+                    </div>
+                </div>
+            </fieldset><br>
+
+            <button 
+                type="submit"
+                [disabled]="!registerForm?.valid">
+                Register
+            </button>
+
+        </div>
+    </form>
+</div>

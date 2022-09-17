@@ -10,6 +10,6 @@ export class HeaderNavbarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }
+  };
 
 }

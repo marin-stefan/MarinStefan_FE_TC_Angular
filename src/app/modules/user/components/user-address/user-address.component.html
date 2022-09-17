@@ -1,45 +1,58 @@
+<form [formGroup]="addressInfoForm">
+    <div formArrayName="addresses">
+        <div 
+            *ngFor="let address of addressInfoForm.get('addresses')['controls']; let i=index" 
+            [formGroupName]="i"
+            class="addressFormContainer">
+            <div class="addresFormSection">
+                <h4>Address no {{i+1}}</h4>
+                <fieldset>
+                    <legend>Street:</legend>
+                    <textarea name="street" formControlName="street" rows="3" cols="40"></textarea>
+                    <div *ngIf="(address.get('street')).invalid && ((address.get('street')).dirty || (address.get('street')).touched)" class="red-text">
+                        <div *ngIf="(address.get('street')).errors?.['required']">
+                            Enter street please
+                        </div>
+                    </div> 
+                </fieldset><br>
 
-<form [formGroup]="childAddressForm">
-    <!-- <h4>Address no {{arrayIndex + 1}}</h4> -->
-    <div class="addressFormContainer">
-        <div class="addressFormSection">
+                <fieldset>
+                    <legend>City:</legend>
+                    <input type="text" name="city" formControlName="city">
+                </fieldset><br>
 
-            <fieldset>
-                <legend>Street:</legend>
-                <textarea name="street" formControlName="street" rows="3" cols="40"></textarea>
-                <div *ngIf="userStreet.invalid && (userStreet.dirty || userStreet.touched)" class="red-text">
-                    <div *ngIf="userStreet.errors?.['required']">
-                        Enter street and number please
-                    </div>
-                </div>
-            </fieldset><br>
-        
-            <fieldset>
-                <legend>City:</legend>
-                <input type="text" name="city" formControlName="city">
-            </fieldset><br>
-        
-            <fieldset [class.pink]="!userCity.value">
-                <legend>Zip:</legend>
-                <input 
-                    type="text" 
-                    name="zip" 
-                    formControlName="zip" 
-                    [readonly]="!userCity.value"
-                    [class.pink]="!userCity.value">
-                <p *ngIf="!userCity.value">...enter city first</p>
-            </fieldset><br>
-
-        </div>
-        <div class="addressFormSection">
-            <button 
-                type="button" 
-                class="removeAddress" 
-                *ngIf="noOfAddresses > 1 "
-                (click)="deleteAddress(arrayIndex)">
+                <fieldset>
+                    <legend>Zip:</legend>
+                    <input 
+                        type="text" 
+                        name="zip" 
+                        formControlName="zip" 
+                        [readonly]="!address.get('city').value" 
+                        [class.pink]="!address.get('city').value">
+                    <p *ngIf="!address.get('city').value">...enter city first</p>
+                </fieldset><br>
+            </div>
+            <div class="addressFormSection">
+                <button 
+                type="button"
+                class="removeAddress"
+                (click)="delAddressItem(i)"
+                *ngIf="i > 0 ">
                     Del
             </button>
+            </div>
         </div>
+        
+        <button 
+            (click)="addAddressItem()" 
+            class="addAddress"
+            [disabled]="!addressInfoForm.get('addresses')?.valid"
+            *ngIf="addressInfoForm?.get('addresses').value.length < 3">
+                add adress
+        </button><br><br>
+        <span
+        *ngIf="addressInfoForm?.get('addresses').value.length === 3">
+            You can add only maximum 3 addresses!!
+        </span><br><br>
     </div>
 </form>
-

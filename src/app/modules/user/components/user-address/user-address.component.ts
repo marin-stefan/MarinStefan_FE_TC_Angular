@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
+import { UserModel } from '../../interfaces/user-model';
 
 @Component({
   selector: 'app-user-address',
@@ -8,49 +9,80 @@ import { FormControl, FormGroup, Validators, FormGroupDirective } from '@angular
 })
 export class UserAddressComponent implements OnInit {
 
-  // declaring the child ddress form variable of type FormGroup that we get from the parent
-  @Input() public childAddressForm : FormGroup;
+  // declaring adress form
+  public addressInfoForm: FormGroup ;
 
-  //index we get from parent ,used for multiple address formgroups
-  @Input() public arrayIndex: number
+  @Input() parentForm : FormGroup ; // parent form 
+  @Input() user : UserModel; // user object when used in edit-form to prefill inputs
 
-  //number of addresses as we get from parent to help display/hide del button on each address group
-  @Input() public noOfAddresses: number;
-
-  // calling the delAddress method in the parent
-  @Output() public delAddressItemEvent : EventEmitter<number> = new EventEmitter<number>();
-
-  // @Input() formGroupName : string
-  // public addressForm : FormGroup
-
-  constructor(private parentFormGroup: FormGroupDirective) { }
+  constructor() { }
 
   ngOnInit(): void {
-    // this.addressForm = this.parentFormGroup.control.get(this.formGroupName) as FormGroup
-  }
+    // creating the form,binding it and adding 1 set of address controls
+    this.buildAddressInfoForm();
+    this.parentForm.addControl('addressUserInfo', this.addressInfoForm);
+    this.addAddressItem();
+    this.user? this.patchForm(this.user) : null // if user input is present we prefill inputs
+  };
 
-  //build and returns a address form group with 3 form controls
-  static buildAddressItem(): FormGroup {
-    return new FormGroup ({
-      street: new FormControl('', Validators.required),
-      city: new FormControl(''),
-      zip: new FormControl('')
+  // builds the address form
+  public buildAddressInfoForm():void{
+    this.addressInfoForm = new FormGroup({
+      addresses: new FormArray([])
     })
-  }
+  };
 
-  // getters for the street, zip and city controls 
-  get userStreet() {return this.childAddressForm.get('street')};
-  get userCity() {return this.childAddressForm.get('city')};
-  get userZip() {return this.childAddressForm.get('zip')};
+  //adds a address item to the addresses array nested in the main addresses form
+  addAddressItem(){
+    const addressItem = new FormGroup({
+      street : new FormControl ('', Validators.required),
+      city : new FormControl ('', ),
+      zip : new FormControl ('', )
+    });
+    (this.addressInfoForm.get('addresses') as FormArray).push(addressItem)
+  };
 
+  // delete the address item from the addresses array
+  public delAddressItem(index: number):void{
+    let addressArray = this.addressInfoForm?.get('addresses') as FormArray
+    addressArray?.removeAt(index)
+  };
 
-  //deletes address - calls the parent's delAddress method
-  public deleteAddress (index: number): void{
-    this.delAddressItemEvent.next(index);
-  }
+  // populates the form with data from the user with that certain id
+  public patchForm(targetUser:UserModel):void{
+    // replacing addresses formArray
+    this.addressInfoForm.setControl('addresses', this.setExistingAddreses(this.user))
+  };
 
- 
+  public setExistingAddreses(user:UserModel):FormArray{
+    // getting array of addreses from input UserModel Object
+    const newAddresses = []
+    for(const key in user){
+      if( ["address1","address2","address3"].includes(key)){
+        const address = user[key]
+        if(address){
+          const splitAddress = address.split(',')
+          newAddresses.push({
+            street: splitAddress[0],
+            city: splitAddress[1],
+            zip: splitAddress[2]
+          })
+        };
+      };
+    };
 
-  
+    // creating new form array for addreses
+    const formArray = new FormArray([]);
+    newAddresses.map((item)=>{
+      formArray.push(
+        new FormGroup({
+          street: new FormControl(item.street, Validators.required ),
+          city: new FormControl (item.city, ),
+          zip: new FormControl (item.zip, )
+        })
+      );
+    });
+    return formArray;
+  };
 
 }

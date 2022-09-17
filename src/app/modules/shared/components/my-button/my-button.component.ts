@@ -15,7 +15,7 @@ export class MyButtonComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
+    // checks what color we got from input
     switch (this.color) {
       case 'cancel':
         this.colorClass = 'cancel';
@@ -29,7 +29,6 @@ export class MyButtonComponent implements OnInit {
       default:
         break;
     }
-
-  }
+  };
 
 }

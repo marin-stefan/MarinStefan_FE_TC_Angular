@@ -6,7 +6,9 @@ export class UserModel {
     company: string ;
     department: string ;
     gender: string ;
-    email: string;
-    address: string;
+    email: string ;
+    address1: string ;
+    address2: string ;
+    address3: string ;
     activated: boolean ;
 }

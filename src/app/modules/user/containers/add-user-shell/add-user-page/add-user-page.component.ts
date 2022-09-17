@@ -10,6 +10,6 @@ export class AddUserPageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }
+  };
 
 }

@@ -28,3 +28,11 @@ h4{
     background-color: rgb(224, 165, 165);
 }
 
+.addAddress{
+    background-color: aquamarine;
+    /* height:30px; */
+    border-radius: 5px;;
+    width: 20%;
+    text-align: center;
+}
+

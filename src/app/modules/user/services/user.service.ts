@@ -15,10 +15,12 @@ export class UserService {
       lastName: 'Doe',
       age: "27",
       company: 'Microsoft',
-      department: 'Front-End',
+      department: 'frontEnd',
       gender : 'male',
       email : 'johndoe@gmail.com',
-      address : '123 hill Road, Dallas, 65432',
+      address1 : '123 hill Road, Dallas, 65432',
+      address2 : null,
+      address3 : null,
       activated : true
     },
     {
@@ -30,7 +32,9 @@ export class UserService {
       department: 'backEnd',
       gender : 'male',
       email: 'michaeljackson@gmail.com',
-      address : '123 hill Road, Dallas, 65432',
+      address1 : '123 hill Road, Dallas, 65432',
+      address2 : null,
+      address3 : null,
       activated : true
     },
     {
@@ -42,7 +46,9 @@ export class UserService {
       department: 'frontEnd',
       gender : 'male',
       email: 'philbuzz@gmail.com',
-      address : '123 hill Road, Dallas, 65432',
+      address1 : '123 hill Road, Dallas, 65432',
+      address2 : null,
+      address3 : null,
       activated : true
     },
     {
@@ -54,7 +60,9 @@ export class UserService {
       department:'backEnd',
       gender : 'female',
       email: 'hannamontana@gmail.com',
-      address : '123 hill Road, Dallas, 65432',
+      address1 : '123 hill Road, Dallas, 65432',
+      address2 : null,
+      address3 : null,
       activated : false
     },
     {
@@ -66,17 +74,19 @@ export class UserService {
       department: 'frontEnd',
       gender : 'male',
       email: 'nobodyparticular@gmail.com',
-      address : '123 hill Road, Dallas, 65432',
+      address1 : '123 hill Road, Dallas, 65432',
+      address2 : null,
+      address3 : null,
       activated : false
     }
-  ]
+  ];
 
   constructor() { }
 
   // returns the array of users from DB
   getUsers(): UserModel[]{
     return this.dbUsers
-  }
+  };
 
   // maps the array of user objects into a array of CardModel objects
   mapUsers():CardModel[]{
@@ -92,17 +102,19 @@ export class UserService {
         specificInfo: "Company: " + (user.company ? user.company : ""),
         specificInfo2: "Department: " + (user.department ? user.department : ""),
         specificInfo3: "Email: " + (user.email ? user.email: ""),
-        specificInfo4: "Address: "+ (user.address ? user.address: "")
+        specificInfo4: user.address1? "Address: "+user.address1 : "",
+        specificInfo5: user.address2? "Address: "+user.address2 : "",
+        specificInfo6: user.address3? "Address: "+user.address3 : ""
       }
     })
-    return mappedUsers
-  }
+    return mappedUsers;
+  };
 
   // adds the new user object to the DB array of user objects
   addNewUser(newUser:UserModel):void{
     newUser.id = (this.dbUsers.length) + 1; // adding id to the user ( for mock ...this should be handled by DB)
     this.dbUsers.push(newUser)
-  }
+  };
 
   editUser(user:UserModel):void{
     for (let i = 0; i<this.dbUsers.length; i++){
@@ -110,29 +122,28 @@ export class UserService {
         this.dbUsers[i]=user
       }
     }
-  }
+  };
 
-  checkDuplicateEmail(email:string):boolean{
+  checkDuplicateEmail(email:string, id?:number):boolean{
+    //checks if email is present 
     let users: UserModel[] = this.getUsers();
-    let response = false
-    users.map((user:UserModel)=>{
-      if(user.email === email){
-        response = true
-      } 
-    })
-    return response
-  }
+    let response = false;
 
-  checkDuplicateEmailatEdit(email:string, id:number):boolean{
-    let users: UserModel[] = this.getUsers();
-    const targetUser = (users.filter((user)=>user.id === id))[0]
-    let response = false
-    users.map((user:UserModel)=>{
-      if((user.email === email) && (user.id !== targetUser.id)){
-        response = true
-      } 
-    })
-    return response
-  }
+    if(typeof id !== 'undefined'){ //if we have id present we discard the email of that id - for the edit-user
+      const targetUser = (users.filter((user)=>user.id === id))[0]
+      users.map((user:UserModel)=>{
+        if((user.email === email) && (user.id !== targetUser.id)){
+          response = true
+        } 
+      })
+    }else { // we check all emails
+      users.map((user:UserModel)=>{
+        if(user.email === email){
+          response = true
+        } 
+      })
+    }
+    return response;
+  };
 
 }

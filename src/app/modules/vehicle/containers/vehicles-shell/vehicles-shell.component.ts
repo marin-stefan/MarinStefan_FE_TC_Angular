@@ -15,6 +15,6 @@ export class VehiclesShellComponent implements OnInit {
 
   ngOnInit(): void {
     this.cards = this._vehicleService.mapVehicles();
-  }
+  };
 
 }

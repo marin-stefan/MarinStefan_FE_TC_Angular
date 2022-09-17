@@ -1,0 +1,26 @@
+.loginBoxHost{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.loginBox{
+    min-width:300px;
+    padding: 25px 15px;
+    background-color:rgb(218, 215, 214);
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    /* justify-content: space-around; */
+    text-align: end;
+    border: 1px solid red;
+    border-radius: 10px;
+    margin: 10px;
+    /* width: 400px; */
+}
+
+.red-text{
+    color:red;
+}

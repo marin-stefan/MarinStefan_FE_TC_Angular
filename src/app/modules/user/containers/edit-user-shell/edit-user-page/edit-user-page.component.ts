@@ -10,6 +10,6 @@ export class EditUserPageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }
+  };
 
 }

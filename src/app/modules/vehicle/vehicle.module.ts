@@ -3,20 +3,26 @@ import { CommonModule } from '@angular/common';
 import { VehiclesShellComponent } from './containers/vehicles-shell/vehicles-shell.component';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
-
+import { HeaderModule } from '../header/header.module';
+import { FooterModule } from '../footer/footer.module';
+import { VehiclesPageComponent } from './containers/vehicles-shell/vehicles-page/vehicles-page.component';
 
 
 @NgModule({
   declarations: [
-    VehiclesShellComponent
+    VehiclesShellComponent,
+    VehiclesPageComponent,
   ],
   imports: [
     CommonModule,
     MatIconModule,
-    SharedModule
+    SharedModule,
+    HeaderModule,
+    FooterModule
   ],
   exports: [
-    VehiclesShellComponent
+    VehiclesShellComponent,
+    VehiclesPageComponent
   ]
 })
 export class VehicleModule { }
