@@ -1,0 +1,34 @@
+<div class="loginBoxHost">
+    <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()">
+        <div class="loginBox">
+
+            <h2>Login</h2><br>
+            <fieldset>
+                <legend>Username:</legend>
+                <input type="text" name="userName" formControlName="userName">
+                <div *ngIf="userUserName.invalid && (userUserName.dirty || userUserName.touched)" class="red-text">
+                    <div *ngIf="userUserName.errors?.['required']">
+                        Enter your username please
+                    </div>
+                </div>
+            </fieldset><br>
+            <fieldset>
+                <legend>Password:</legend>
+                <input type="password" name="userPass" formControlName="userPass">
+                <div *ngIf="userUserPass.invalid && (userUserPass.dirty || userUserPass.touched)" class="red-text">
+                    <div *ngIf="userUserPass.errors?.['required']">
+                        Enter your password please
+                    </div>
+                </div>
+            </fieldset><br>
+
+            <button 
+                type="submit"
+                [disabled]="!loginForm?.valid">
+                Login
+            </button>
+            <a routerLink="/register">Register</a>
+
+        </div>
+    </form>
+</div>

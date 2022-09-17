@@ -11,22 +11,22 @@ import { Router } from '@angular/router';
 })
 export class UsersShellComponent implements OnInit {
 
-  public showHiddenCards = true;
-  public status: boolean = false;
-  public baseCards: CardModel[];
-  public cards: CardModel[];
+  public showHiddenCards = true; // variable for showing hidden cards
+  public status: boolean = false; // status for each user
+  public baseCards: CardModel[]; // our mai user array as if in db
+  public cards: CardModel[]; // our copy that we modify
 
   @ViewChildren(CardTemplateComponent) viewChildren: QueryList<CardTemplateComponent>
 
   constructor(
     private _userService: UserService,
     private _router: Router
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.baseCards = this._userService.mapUsers(); // main copy from bd ..we're altering this..not the db
     this.cards = JSON.parse(JSON.stringify(this.baseCards));  //the copy of the bd to send to the html
-  }
+  };
 
   // inverts the boolean value of the status and result for showHiddenCards method
   hideDisplayNonActive():void{
@@ -73,7 +73,7 @@ export class UsersShellComponent implements OnInit {
   public goToEditPage(userId:number){
     this._router.navigateByUrl('/edit-user/'+ userId)
     // this._router.navigate[('/edit-user/' + userId)]
-  }
+  };
 
 }
 

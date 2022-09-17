@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { FormGroup } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-import { UserAddressComponent } from '../../components/user-address/user-address.component';
 import { UserModel } from '../../interfaces/user-model';
+import { AddressModel } from '../../interfaces/address-model';
 
 
 @Component({
@@ -14,125 +13,45 @@ import { UserModel } from '../../interfaces/user-model';
 })
 export class AddUserShellComponent implements OnInit {
 
-  // declaring our contact form variable of type FormGroup
-  public userContactForm : FormGroup;
-
+  // declaring our parent contact form and initialisation
+  public parentUserContactForm = new FormGroup({});
+  
   constructor(
-    private router:Router, 
+    private router: Router, 
     private userService: UserService,
   ){ }
-
+    
   ngOnInit(): void {
-    this.generateUserContactForm();
-    // console.log(this.userContactForm.controls['contactInfo'].value)
-    // console.log(this.userContactForm?.get('addresses').value)
   };
-
- 
-  
-  // generating our parent form
-  public generateUserContactForm(): void{
-    this.userContactForm = new FormGroup({
-      contactInfo: new FormGroup({
-        firstName: new FormControl('', Validators.required),
-        lastName: new FormControl('', Validators.required),
-        age: new FormControl('', 
-          [
-            Validators.required, 
-            Validators.min(15), 
-            Validators.max(100)
-          ]
-        ),
-        company: new FormControl('', 
-          [
-            Validators.required, 
-            Validators.maxLength(35)
-          ]
-        ),
-        email: new FormControl('', 
-          [
-            Validators.required, 
-            Validators.email, 
-            Validators.pattern("^[a-z0-9._%+-]+@gmail.com$")
-          ],this.checkmyemail.bind(this)
-        ),
-        department: new FormControl('',
-          [
-            Validators.required,
-            Validators.minLength(2)
-          ]
-        ),
-        gender: new FormControl('', Validators.required),
-        activated: new FormControl('')
-      }),
-        addresses : new FormArray ([
-          UserAddressComponent.buildAddressItem()
-        ])
-        // addresses: new FormArray([])
-        // new FormGroup({
-        // //  UserAddressComponent.addAddressItem(),
-        // street: new FormControl('', Validators.required),
-        // city: new FormControl(''),
-        // zip: new FormControl('')
-        // })
-    })
-  }
-
-  //build and returns a address form group with 3 form controls
-  //  public buildAddressItem(): FormGroup {
-  //   return new FormGroup ({
-  //     street: new FormControl('', Validators.required),
-  //     city: new FormControl(''),
-  //     zip: new FormControl('')
-  //   })
-  // }
-
-  //add another address field in the addresses FormArray
-  public addAddressItem():void{
-    let addressArray = this.userContactForm?.get('addresses') as FormArray
-    addressArray?.push(UserAddressComponent.buildAddressItem())
-  }
-
-  // delete the address field
-  public delAddressItem(index: number):void{
-    let addressArray = this.userContactForm?.get('addresses') as FormArray
-    addressArray?.removeAt(index)
-  }
-
+    
   // on form submit we create our user object from the values of the form and call userservice method to save user
-  public submitForm():void{
-    let contactInfo = this.userContactForm.controls['contactInfo'].value
-    let contactAddressArray = this.userContactForm.value.addresses
-
+  public addUser():void{
+    const form = this.parentUserContactForm.value
+    let contactInfo = form['basicUserInfo']
+    let contactAddressArray = form['addressUserInfo'].addresses
     let newUser:UserModel = {
-      id: 99999 , // passing id just to match the UserModel ... iser service adds it's own corect id to the Db users array
+      id: 99999 , // passing id just to match the UserModel ... User service adds it's own corect id to the Db users array
       firstName: contactInfo.firstName ,
       lastName: contactInfo.lastName ,
-      age: contactInfo.age ,
+      age: contactInfo.age,
       company: contactInfo.company ,
       department: contactInfo.department,
       gender: contactInfo.gender,
       email: contactInfo.email,
-      address: contactAddressArray[0].street+", "+contactAddressArray[0].city+", "+contactAddressArray[0].zip ,
+      address1: this.buildAddressLine(contactAddressArray[0]),
+      address2: this.buildAddressLine(contactAddressArray[1]),
+      address3: this.buildAddressLine(contactAddressArray[2]),
       activated: contactInfo.activated 
     }
     this.userService.addNewUser(newUser);
     this.router.navigate(['/users']); // after submit - redirect to users list page
-  }
+  };
   
-  // checking if email is duplicate
-  public checkmyemail(control:FormControl): Promise<any> | Observable<any>{
-    const isEmailDuplicate = this.userService.checkDuplicateEmail(control.value)
-    const response = new Promise((resolve, reject)=> {
-      setTimeout(()=>{
-        if(isEmailDuplicate){
-          resolve({emailNotAllowed: true})
-        }else {
-          resolve(null)
-        }
-      }, 2000)
-    });
-    return response;
-  }
-  
+  public buildAddressLine(address:AddressModel):string{
+    // builds a string with all the info if address is valid
+    if(address){
+      return address.street + (address.city? ", "+address.city: "") + (address.zip? ", "+address.zip: "")
+    }else return null
+  };
+
 }

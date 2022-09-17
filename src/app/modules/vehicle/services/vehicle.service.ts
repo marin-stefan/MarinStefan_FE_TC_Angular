@@ -72,15 +72,17 @@ export class VehicleService {
       color: 'brown',
       carNumber: '654TRE'
     }
-  ]
+  ];
 
   constructor() { }
 
   getVehicles():VehicleModel[]{
+    //returs list of all vehicle objects
     return this.dbVehicles;
-  }
+  };
 
   mapVehicles():CardModel[]{
+    //maps vechile object to card template options
     let tempVehicles = this.getVehicles();
     let mappedVehicles = tempVehicles.map((vehicle: VehicleModel) => {
       return {
@@ -93,10 +95,12 @@ export class VehicleService {
         specificInfo: vehicle.carNumber,
         specificInfo2: null,
         specificInfo3: null,
-        specificInfo4: null
+        specificInfo4: null,
+        specificInfo5: null,
+        specificInfo6: null
       }
-    })
-    return mappedVehicles
-  }
+    });
+    return mappedVehicles;
+  };
 
 }

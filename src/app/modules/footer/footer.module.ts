@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FooterComponent } from './footer/footer.component';
 import { SharedModule } from '../shared/shared.module';
-
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -11,7 +10,7 @@ import { SharedModule } from '../shared/shared.module';
   ],
   imports: [
     CommonModule,
-    SharedModule,
+    SharedModule
   ],
   exports: [
     FooterComponent

@@ -93,6 +93,19 @@
 * - Added comments for fewer headaches further on.
 
 
+#### task 8 - add auth module
+
+
+* - Refactored once again form components.
+* - Added more logic to the dumb form components to handle edit-user functionality.
+* - Edited email validator to work properly with edit-user also.
+* - Created separate auth modules in the modules folder.
+* - Created login and register components inside auth module.
+* - Created link from Login page to register page.
+* - At Register we check the username to be unique.
+* - Registering an account will also log it in.
+* - Added log out button on header.
+* - Added custom validator for the confirm password field at register.
 
 
 

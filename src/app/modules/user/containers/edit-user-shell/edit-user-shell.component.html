@@ -1,22 +1,20 @@
 <div class="editUserHost">
-    <form [formGroup]="userContactForm" (ngSubmit)="submitChanges()">
+    <form [formGroup]="parentUserEditForm" (ngSubmit)="submitChanges()" >
         <div class="editUserBox">
-
             <div class="formSection">
                 <h2>Contact Details</h2>
-                <app-user-basic formGroupName="contactInfo"></app-user-basic>
+                <app-user-basic [parentForm]="parentUserEditForm" [user]="userToEdit"></app-user-basic>
             </div>
 
             <div class="formSection">
                 <h2>Address</h2>
-                <!-- <app-user-address></app-user-address> -->
+                <app-user-address [parentForm]="parentUserEditForm" [user]="userToEdit"></app-user-address>
                 <button 
                     type="submit" 
-                    [disabled]="!userContactForm?.valid">
+                    [disabled]="!parentUserEditForm?.valid">
                     Save Changes
                 </button>
             </div>
-
         </div>
     </form>
 </div>

@@ -10,6 +10,6 @@ export class HeaderLogoComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }
+  };
 
 }

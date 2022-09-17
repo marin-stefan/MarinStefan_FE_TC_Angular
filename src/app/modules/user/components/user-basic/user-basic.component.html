@@ -1,4 +1,4 @@
-<ng-container [formGroup]="basicForm">
+<form [formGroup]="basicInfoForm">
 
         <fieldset>
             <legend>First Name:</legend>
@@ -46,7 +46,6 @@
             <mat-spinner *ngIf="userEmail.pending" [diameter]="20" ></mat-spinner>
             <p *ngIf="userEmail.pending">...please wait</p>
             <div *ngIf="userEmail.invalid && (userEmail.dirty || userEmail.touched)" class="red-text">
-                <!-- <div *ngIf="userEmail.invalid">lalala</div> -->
                 <div *ngIf="userEmail.errors?.['required'] ">
                     Please enter a valid email address!
                 </div>
@@ -93,4 +92,4 @@
             <label for="activated">Active</label>
         </fieldset><br>
     
-</ng-container>
+    </form>
