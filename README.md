@@ -63,7 +63,6 @@
 * - Submit button si disabled untill all fields are validated.
 * - Implemented async email validator to check if email is already used by another registered user.
 
-
 #### task 6 - Add adresses component on user add page
 
 * - General folder/component/modules restrucuture.
@@ -81,7 +80,6 @@
 * - In user card all present addreses will be displayed.
 * - At form submit, the smart main component gets all input values and saves user and then redirects to user-list page.
 
-
 #### task 7 - add edit user smart component 
 
 * - Created edit-user-shell smart component as container.
@@ -92,9 +90,7 @@
 * - Submit button on edit-user form saves the changes and redirects to users page which displays new changed info.
 * - Added comments for fewer headaches further on.
 
-
 #### task 8 - add auth module
-
 
 * - Refactored once again form components.
 * - Added more logic to the dumb form components to handle edit-user functionality.
@@ -107,5 +103,14 @@
 * - Added log out button on header.
 * - Added custom validator for the confirm password field at register.
 
+#### task 9 - Add User details page
+
+* - Added User Details page.
+* - Added routes and guard.
+* - Added Account Service.
+* - Added Auth Service.
+* - Added User detail shell comp.
+* - Added user details card shared dumb comp.
+* - Added mat-toggle to swith between complete/personal/company details displayed.
 
 

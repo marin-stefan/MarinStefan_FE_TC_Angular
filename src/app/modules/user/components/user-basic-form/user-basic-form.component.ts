@@ -5,12 +5,12 @@ import { Observable } from 'rxjs';
 import { UserModel } from '../../interfaces/user-model';
 
 @Component({
-  selector: 'app-user-basic',
-  templateUrl: './user-basic.component.html',
-  styleUrls: ['./user-basic.component.css']
+  selector: 'app-user-basic-form',
+  templateUrl: './user-basic-form.component.html',
+  styleUrls: ['./user-basic-form.component.css']
 })
 
-export class UserBasicComponent implements OnInit {
+export class UserBasicFormComponent implements OnInit {
 
   public basicInfoForm: FormGroup; // declaring the form
 

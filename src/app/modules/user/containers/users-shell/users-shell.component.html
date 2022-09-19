@@ -38,7 +38,7 @@
                 [info]="card"
                 [index]="i">
                 <h2 title >User Details</h2>
-                <mat-icon icon >account_circle</mat-icon>
+                <mat-icon icon (click)="goToDetailsPage(card.id)">account_circle</mat-icon>
                 <app-my-button 
                 button (click)="statusChange({status: card.status, id: card.id, index: i})" 
                 [text]="card.status ? 'de-activate': 'activate'">

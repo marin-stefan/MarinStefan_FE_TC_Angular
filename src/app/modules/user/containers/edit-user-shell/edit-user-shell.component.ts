@@ -41,7 +41,6 @@ export class EditUserShellComponent implements OnInit {
   public submitChanges():void{
     let contactInfo = this.parentUserEditForm.controls['basicUserInfo'].value
     let addressInfo = this.parentUserEditForm.controls['addressUserInfo'].value
-    console.log(addressInfo.addresses)
 
     let newUser:UserModel = {
       id: this.userId,

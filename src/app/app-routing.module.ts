@@ -10,19 +10,21 @@ import { AddUserPageComponent } from './modules/user/containers/add-user-shell/a
 import { EditUserPageComponent } from './modules/user/containers/edit-user-shell/edit-user-page/edit-user-page.component';
 import { VehiclesPageComponent } from './modules/vehicle/containers/vehicles-shell/vehicles-page/vehicles-page.component';
 import { AuthModule } from './modules/auth/auth.module';
-import { RegisterComponent } from './modules/auth/components/register/register.component';
-import { LoginComponent } from './modules/auth/components/login/login.component';
-import { AppGuardGuard } from './app-guard.guard';
+import { RegisterComponent } from './modules/auth/containers/register/register.component';
+import { LoginComponent } from './modules/auth/containers/login/login.component';
+import { AppGuard } from './app.guard';
+import { UserDetailsPageComponent } from './modules/user/containers/user-details-shell/user-details-page/user-details-page.component';
 
 //setting routes
 const appRoute: Routes = [
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
-  {path: 'home', component: UsersPageComponent, canActivate: [AppGuardGuard]}, // redirect to userspage
-  {path: 'add-user', component: AddUserPageComponent, canActivate: [AppGuardGuard]},
-  {path: 'edit-user/:id', component: EditUserPageComponent, canActivate: [AppGuardGuard]},
-  {path: 'users', component: UsersPageComponent, canActivate: [AppGuardGuard]},
-  {path: 'vehicles', component: VehiclesPageComponent, canActivate: [AppGuardGuard]},
-  {path: 'login', component : LoginComponent},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'home', component: UsersPageComponent, canActivate: [AppGuard] }, // redirect to userspage
+  {path: 'add-user', component: AddUserPageComponent, canActivate: [AppGuard] },
+  {path: 'edit-user/:id', component: EditUserPageComponent, canActivate: [AppGuard] },
+  {path: 'users', component: UsersPageComponent, canActivate: [AppGuard] },
+  {path: 'users/:id', component: UserDetailsPageComponent, canActivate: [AppGuard] },
+  {path: 'vehicles', component: VehiclesPageComponent, canActivate: [AppGuard] },
+  {path: 'login', component : LoginComponent },
   {path: 'register', component: RegisterComponent},
   {path: '**', component: Page404Component}
 
