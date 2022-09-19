@@ -3,12 +3,12 @@
         <div class="addUserBox">
             <div class="formSection">
                 <h2>Contact Details</h2>
-                <app-user-basic [parentForm]="parentUserContactForm"></app-user-basic>
+                <app-user-basic-form [parentForm]="parentUserContactForm"></app-user-basic-form>
             </div>
 
             <div class="formSection">
                 <h2>Address</h2>
-                <app-user-address [parentForm]="parentUserContactForm"></app-user-address>
+                <app-user-address-form [parentForm]="parentUserContactForm"></app-user-address-form>
                 <button 
                     type="submit"
                     [disabled]="!parentUserContactForm?.valid" >

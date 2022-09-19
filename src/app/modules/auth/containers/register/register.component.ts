@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
 
   constructor(
-    private authService : AuthService,
+    private accountService : AccountService,
     private router : Router
     ) { }
 
@@ -38,17 +38,15 @@ export class RegisterComponent implements OnInit {
 
   public submitRegisterForm():void{
     //takes the info and sends it to auth service to be checked and stored then navigate to users page
-    if(!this.authService.checkUsername(this.registerForm.value.userName)){
-      this.authService.saveAccount(this.registerForm.value)
+    if(!this.accountService.checkUsername(this.registerForm.value.userName)){
+      this.accountService.saveAccount(this.registerForm.value)
       this.router.navigateByUrl('/users')
     }else {
       alert('Username is already in use')
       this.registerForm.reset();
     }
-
-
-
   }
+
 
   public confirmPassword(control:FormControl): Promise<any> | Observable<any>{
     const response = new Promise((resolve, reject)=> {

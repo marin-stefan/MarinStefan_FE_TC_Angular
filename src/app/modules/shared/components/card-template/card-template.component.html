@@ -1,6 +1,8 @@
 <div class="cardInfo">
     <ng-content select="[title]" ></ng-content>
     <ng-content select="[icon]" ></ng-content>
+    <ng-content select="[pencil]" class="foo"></ng-content>
+
 </div>
 <p>{{info.displayName}}</p>
 <p>{{info.age}}</p>
@@ -13,4 +15,3 @@
 <p>{{info.specificInfo6 ? info.specificInfo6 : null}}</p>
 <ng-content select="[status]"></ng-content>
 <ng-content select="[button]"></ng-content><br><br>
-<ng-content select="[pencil]"></ng-content>

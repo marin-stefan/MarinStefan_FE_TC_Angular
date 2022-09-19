@@ -1,0 +1,19 @@
+<div class="userDetailsCard">
+    <div>
+        <mat-button-toggle-group 
+            (change)="InfoOptionChange($event)" 
+            appearance="legacy" 
+            name="DetaisSelection" 
+            aria-label="Details Selection">
+            <mat-button-toggle value="complete" checked="true">Complete Info</mat-button-toggle>
+            <mat-button-toggle value="personal">Personal Info</mat-button-toggle>
+            <mat-button-toggle value="company">Company Info</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    <div>
+        <app-user-details-card
+        [user]="user"
+        >    
+    </app-user-details-card>
+    </div>
+</div>

@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { UserModel } from '../../interfaces/user-model';
 
 @Component({
-  selector: 'app-user-address',
-  templateUrl: './user-address.component.html',
-  styleUrls: ['./user-address.component.css']
+  selector: 'app-user-address-form',
+  templateUrl: './user-address-form.component.html',
+  styleUrls: ['./user-address-form.component.css']
 })
-export class UserAddressComponent implements OnInit {
+export class UserAddressFormComponent implements OnInit {
 
   // declaring adress form
   public addressInfoForm: FormGroup ;

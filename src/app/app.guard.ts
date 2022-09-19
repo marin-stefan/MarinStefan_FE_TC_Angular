@@ -6,9 +6,12 @@ import { AuthService } from './modules/auth/services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AppGuardGuard implements CanActivate {
+export class AppGuard implements CanActivate {
 
-  constructor(private router: Router, private authService : AuthService){}
+  constructor(
+    private router: Router, 
+    private authService : AuthService,
+  ){}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -18,8 +21,8 @@ export class AppGuardGuard implements CanActivate {
         return true
       }else {
         window.alert("Please Log In")
-        this.router.navigateByUrl('/login'); // after submit - redirect to login
-        return false;
+        // this.router.navigateByUrl('/login'); // after submit - redirect to login
+        return this.router.parseUrl('/login')
       }
   }
   

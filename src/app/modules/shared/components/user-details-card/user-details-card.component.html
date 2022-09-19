@@ -1,0 +1,13 @@
+<div class="userDetailsList">
+    <ul *ngIf="user" >
+        <li *ngIf="user.firstName">FirstName: {{user.firstName}}</li>
+        <li *ngIf="user.lastName">LastName: {{user.lastName}}</li>
+        <li *ngIf="user.age">Age: {{user.age}}</li>
+        <li *ngIf="user.gender">Gender: {{user.gender}}</li>
+        <li *ngIf="user.email">Email: {{user.email}}</li>
+        <li *ngIf="user.address1">Address: {{user.address1}}</li>
+        
+        <li *ngIf="user.company">Company: {{user.company}}</li>
+        <li *ngIf="user.department">Department: {{user.department}}</li>
+    </ul>
+</div>

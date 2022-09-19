@@ -2,3 +2,10 @@
     display: flex;
     justify-content: space-around;
 }
+
+.foo{
+    cursor: pointer
+}
+mat-icon{
+    cursor:pointer
+}
