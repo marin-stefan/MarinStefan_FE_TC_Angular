@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { CardModel } from '../../interfaces/card-model';
 
 @Component({

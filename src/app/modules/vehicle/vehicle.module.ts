@@ -5,13 +5,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
 import { HeaderModule } from '../header/header.module';
 import { FooterModule } from '../footer/footer.module';
-import { VehiclesPageComponent } from './containers/vehicles-shell/vehicles-page/vehicles-page.component';
 
 
 @NgModule({
   declarations: [
     VehiclesShellComponent,
-    VehiclesPageComponent,
   ],
   imports: [
     CommonModule,
@@ -22,7 +20,6 @@ import { VehiclesPageComponent } from './containers/vehicles-shell/vehicles-page
   ],
   exports: [
     VehiclesShellComponent,
-    VehiclesPageComponent
   ]
 })
 export class VehicleModule { }

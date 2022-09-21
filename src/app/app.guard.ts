@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, CanActivate, RouterStateSnapshot, UrlTree, CanActivateChild } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './modules/auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AppGuard implements CanActivate {
+export class AppGuard implements CanActivateChild, CanActivateChild{
 
   constructor(
     private router: Router, 
@@ -24,6 +24,18 @@ export class AppGuard implements CanActivate {
         // this.router.navigateByUrl('/login'); // after submit - redirect to login
         return this.router.parseUrl('/login')
       }
-  }
+  };
+
+  canActivateChild(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      if(this.authService.checkForAnyLoggedUser()){ //this returns boolean and we can authorize routes
+        return true
+      }else {
+        window.alert("Please Log In")
+        // this.router.navigateByUrl('/login'); // after submit - redirect to login
+        return this.router.parseUrl('/login')
+      }
+  };
   
 }

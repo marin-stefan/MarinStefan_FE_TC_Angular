@@ -1,17 +1,29 @@
-<div class="cardInfo">
-    <ng-content select="[title]" ></ng-content>
-    <ng-content select="[icon]" ></ng-content>
-    <ng-content select="[pencil]" class="foo"></ng-content>
 
-</div>
-<p>{{info.displayName}}</p>
-<p>{{info.age}}</p>
-<p>{{info.property}}</p>
-<p>{{info.specificInfo ? info.specificInfo : null}}</p>
-<p>{{info.specificInfo2 ? info.specificInfo2 : null}}</p>
-<p>{{info.specificInfo3 ? info.specificInfo3 : null}}</p>
-<p>{{info.specificInfo4 ? info.specificInfo4 : null}}</p>
-<p>{{info.specificInfo5 ? info.specificInfo5 : null}}</p>
-<p>{{info.specificInfo6 ? info.specificInfo6 : null}}</p>
-<ng-content select="[status]"></ng-content>
-<ng-content select="[button]"></ng-content><br><br>
+<mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>
+            <ng-content select="[title]" ></ng-content>
+        </mat-card-title>
+      <mat-card-subtitle>{{info.status? "Active": "Non-Active"}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="https://www.w3schools.com/w3images/avatar2.png" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+        <p>{{info.displayName}}</p>
+        <p>{{info.age}}</p>
+        <p>{{info.property}}</p>
+        <p>{{info.specificInfo ? info.specificInfo : null}}</p>
+        <p>{{info.specificInfo2 ? info.specificInfo2 : null}}</p>
+        <p>{{info.specificInfo3 ? info.specificInfo3 : null}}</p>
+        <p>{{info.specificInfo4 ? info.specificInfo4 : null}}</p>
+        <p>{{info.specificInfo5 ? info.specificInfo5 : null}}</p>
+        <p>{{info.specificInfo6 ? info.specificInfo6 : null}}</p>
+    </mat-card-content>
+    <ng-content select="[pencil]"></ng-content>
+    <ng-content select="[icon]" ></ng-content>
+    <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+        <ng-content select="[button]"></ng-content>
+    </mat-card-actions>
+  </mat-card>

@@ -77,7 +77,7 @@ export class UsersShellComponent implements OnInit {
 
   // at user icon click we redirect to the user-details page of the user with id userId
   public goToDetailsPage(userId:number){
-    this._router.navigateByUrl('/users/'+ userId)
+    this._router.navigateByUrl('/users/'+ userId + '/all')
     // this._router.navigate[('/edit-user/' + userId)]
   };
 

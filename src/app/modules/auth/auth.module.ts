@@ -1,28 +1,38 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './containers/login/login.component';
-import { RegisterComponent } from './containers/register/register.component';
+import { LoginShellComponent } from './containers/login-shell/login-shell.component';
+import { RegisterShellComponent } from './containers/register-shell/register-shell.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LogFormComponent } from './components/log-form/log-form.component';
+import { AuthorizedLayoutComponent } from './components/authorized-layout/authorized-layout.component';
+import { NonAuthorizedLayoutComponent } from './components/non-authorized-layout/non-authorized-layout.component';
+import { HeaderModule } from '../header/header.module';
+import { FooterModule } from '../footer/footer.module';
 
 
 @NgModule({
   declarations: [
-    LoginComponent,
-    RegisterComponent,
+    LoginShellComponent,
+    RegisterShellComponent,
     LogFormComponent,
+    AuthorizedLayoutComponent,
+    NonAuthorizedLayoutComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    HeaderModule,
+    FooterModule
     
   ],
   exports: [
-    LoginComponent,
-    RegisterComponent,
-    LogFormComponent
+    LoginShellComponent,
+    RegisterShellComponent,
+    LogFormComponent,
+    NonAuthorizedLayoutComponent,
+    AuthorizedLayoutComponent
   ]
 })
 export class AuthModule { }

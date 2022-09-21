@@ -113,4 +113,14 @@
 * - Added user details card shared dumb comp.
 * - Added mat-toggle to swith between complete/personal/company details displayed.
 
+#### task 10 - Add pipes and lazy loading
+
+* - Refactored routes, with nested children routes.
+* - Refactored Login and Register components to smart both using a separate dumb component for the inputs.
+* - Edited Footer and Body Css to make footer stick to bottom.
+* - Used Mat-Tab-Nav for tabs instead of mat-Toggle.
+* - Changing view from personal / commpany / all details updates the url.
+* - Added mat-card to user details page.
+* - Added different mat-card to usercard in user list component.
+
 

@@ -3,9 +3,17 @@
     justify-content: space-around;
 }
 
-.foo{
-    cursor: pointer
+.example-card {
+    max-width: 400px;
+    background-color: inherit;
+    color: black;
 }
-mat-icon{
-    cursor:pointer
+
+.example-header-image {
+    background-image: url('https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000');
+    background-size: cover;
+}
+
+mat-card-subtitle{
+    color: rgb(14, 139, 227);
 }

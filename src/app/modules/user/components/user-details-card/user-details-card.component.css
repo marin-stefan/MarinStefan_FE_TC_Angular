@@ -1,0 +1,13 @@
+.userDetailsList{
+    padding: 3px;
+    background-color: rgb(156, 186, 243);
+    margin:50px;
+    border-radius: 5px;
+    width: 400px;
+    border: 1px solid orange;
+}
+
+.example-card {
+  max-width: 400px;
+}
+  

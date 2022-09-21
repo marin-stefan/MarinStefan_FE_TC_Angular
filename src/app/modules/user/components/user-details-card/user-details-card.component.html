@@ -1,0 +1,32 @@
+
+<div class="userDetailsList">
+    <mat-card class="example-card">
+        <mat-card-title-group>
+          <mat-card-title>User Information</mat-card-title>
+          <mat-card-subtitle>
+            {{
+                !user.company
+                    ? "User's personal details"
+                    : !user.gender 
+                        ? "User's company details"
+                        : "User's full details"
+            }}
+          </mat-card-subtitle>
+          <img mat-card-md-image src="https://www.w3schools.com/howto/img_avatar.png" >
+        </mat-card-title-group>
+        <mat-card-content>
+            <ul *ngIf="user" >
+                <li *ngIf="user.firstName">FirstName: {{user.firstName}}</li>
+                <li *ngIf="user.lastName">LastName: {{user.lastName}}</li>
+                <li *ngIf="user.age">Age: {{user.age}}</li>
+                <li *ngIf="user.gender">Gender: {{user.gender}}</li>
+                <li *ngIf="user.email">Email: {{user.email}}</li>
+                <li *ngIf="user.address1">Address: {{user.address1}}</li>
+                
+                <li *ngIf="user.company">Company: {{user.company}}</li>
+                <li *ngIf="user.department">Department: {{user.department}}</li>
+            </ul>
+        </mat-card-content>
+      </mat-card>
+
+</div>
