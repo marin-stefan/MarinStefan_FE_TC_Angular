@@ -122,5 +122,6 @@
 * - Changing view from personal / commpany / all details updates the url.
 * - Added mat-card to user details page.
 * - Added different mat-card to usercard in user list component.
+* - Moved the Users list page sort bar into a separate sidebar component.
 
 
