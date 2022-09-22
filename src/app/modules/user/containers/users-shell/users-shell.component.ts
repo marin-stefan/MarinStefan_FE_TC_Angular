@@ -30,6 +30,7 @@ export class UsersShellComponent implements OnInit {
 
   // inverts the boolean value of the status and result for showHiddenCards method
   hideDisplayNonActive():void{
+    console.log("intousersshell hidedisplay")
     this.showHiddenCards = !this.showHiddenCards;
     this.status = !this.status
   };
@@ -40,8 +41,9 @@ export class UsersShellComponent implements OnInit {
   };
 
   // filters cards array which is displayed by the html
-  genderSort(event:any):void{
-    switch(event.value){
+  genderSort(value:string):void{
+    console.log(value)
+    switch(value){
       case 'all':
         this.cards = JSON.parse(JSON.stringify(this.baseCards));
         break;
@@ -67,7 +69,6 @@ export class UsersShellComponent implements OnInit {
       ? this.viewChildren.toArray().forEach(userCard => userCard.info.status = !userCard.info.status)
       : this.viewChildren.toArray().forEach(userCard => userCard.info.status = true)
   };
-
 
   // at pencil icon click we redirect to the edit-user page of the user with id userId
   public goToEditPage(userId:number){

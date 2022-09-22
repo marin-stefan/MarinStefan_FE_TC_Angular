@@ -23,7 +23,6 @@ import { UserDetailsLayoutComponent } from './modules/user/components/user-detai
 //setting routes
 const appRoute: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
-
   {
     path: "",
     component: NonAuthorizedLayoutComponent,
@@ -34,17 +33,15 @@ const appRoute: Routes = [
       
     ]
   },
-
   {
     path: "",
     component: AuthorizedLayoutComponent,
-    // canActivateChild: [AppGuard],
+    canActivateChild: [AppGuard],
     children: [
       {path: 'home', component: UsersShellComponent},
       {path: 'users', component: UsersShellComponent },
       {path: 'add-user', component: AddUserShellComponent },
       {path: 'edit-user/:id', component: EditUserShellComponent},
-
       {
         path: 'users/:id', 
         component: UserDetailsLayoutComponent,
@@ -53,16 +50,12 @@ const appRoute: Routes = [
           {path: 'personal', component: UserPersonalDetailsShellComponent},
           {path: 'company', component: UserCompanyDetailsShellComponent}
         ]
-          
       },
-
       {path: 'vehicles', component: VehiclesShellComponent },
       {path: '', redirectTo: 'home', pathMatch: 'full' },
     ]
   },
-
   {path: '**', component: Page404Component},
-
 ];
 
 @NgModule({

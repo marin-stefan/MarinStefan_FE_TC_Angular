@@ -4,6 +4,7 @@
     flex-wrap: wrap;
     justify-content: space-around;
     background-color: bisque;
+    width: 80%
 }
 
 .userCard{
@@ -51,4 +52,8 @@ button{
     cursor: pointer;
 }
 
+.userMain{
+    display:flex;
+    justify-content: space-between;
+}
 

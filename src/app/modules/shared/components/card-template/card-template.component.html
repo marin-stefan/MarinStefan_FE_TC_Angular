@@ -5,9 +5,13 @@
         <mat-card-title>
             <ng-content select="[title]" ></ng-content>
         </mat-card-title>
-      <mat-card-subtitle>{{info.status? "Active": "Non-Active"}}</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="info.type==='user'">{{info.status? "Active": "Non-Active"}}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="https://www.w3schools.com/w3images/avatar2.png" alt="Photo of a Shiba Inu">
+    <img *ngIf="info.type === 'user'"
+      mat-card-image 
+      src="https://www.w3schools.com/w3images/avatar2.png" 
+      alt="avatar"
+    >
     <mat-card-content>
         <p>{{info.displayName}}</p>
         <p>{{info.age}}</p>

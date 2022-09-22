@@ -1,0 +1,30 @@
+
+<div class="sortBar">
+   
+        <mat-button-toggle-group 
+            (change)="emitGender($event)" 
+            appearance="legacy" 
+            name="genderSelection" 
+            aria-label="Gender Selection">
+            <mat-button-toggle value="all" checked="true">All</mat-button-toggle>
+            <mat-button-toggle value="male">Male</mat-button-toggle>
+            <mat-button-toggle value="female">Female</mat-button-toggle>
+        </mat-button-toggle-group>
+        <button 
+            (click)="emitHideDisplayNonActive()" 
+            mat-raised-button color="primary"
+            [disabled]="allUsersActive()? true : false">
+            <span>
+                {{status?'show non-active':'hide non-active'}}
+            </span>
+        </button>
+    
+        <app-my-button color="cancel" text="Red Button"></app-my-button>
+        <app-my-button color="submit" text="Green Button"></app-my-button>
+        <app-my-button color="warning" text="Orange Button"></app-my-button>
+        <app-my-button 
+            (click)="emitActivateCards()" 
+            [text]="allUsersActive()? 'De-Activate all users':'Activate all users'">
+        </app-my-button>
+    
+</div>

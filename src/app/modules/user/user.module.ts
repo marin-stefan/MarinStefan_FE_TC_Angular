@@ -22,6 +22,7 @@ import { UserCompanyDetailsShellComponent } from './containers/user-company-deta
 import { RouterModule } from '@angular/router';
 import { UserDetailsLayoutComponent } from './components/user-details-layout/user-details-layout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UsersSideBarMenuShellComponent } from './containers/users-side-bar-menu-shell/users-side-bar-menu-shell.component';
 
 
 
@@ -36,7 +37,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UserDetailsCardComponent,
     UserPersonalDetailsShellComponent,
     UserCompanyDetailsShellComponent,
-    UserDetailsLayoutComponent
+    UserDetailsLayoutComponent,
+    UsersSideBarMenuShellComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +62,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UserDetailsCardComponent,
     UserPersonalDetailsShellComponent,
     UserCompanyDetailsShellComponent,
-    UserDetailsLayoutComponent
+    UserDetailsLayoutComponent,
+    UsersSideBarMenuShellComponent
   ]
 })
 export class UserModule { }
