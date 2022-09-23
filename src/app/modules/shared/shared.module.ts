@@ -6,7 +6,9 @@ import { MyButtonComponent } from './components/my-button/my-button.component';
 import { CardTemplateComponent } from './components/card-template/card-template.component';
 import { Page404Component } from './components/page404/page404.component';
 import { RouterModule } from '@angular/router';
-import { UserDetailsCardComponent } from './components/user-details-card/user-details-card.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
+import { EditAgeAddTenPipe } from 'src/app/pipes/edit-age-add-ten.pipe';
 
 
 @NgModule({
@@ -15,12 +17,14 @@ import { UserDetailsCardComponent } from './components/user-details-card/user-de
     MyButtonComponent,
     CardTemplateComponent,
     Page404Component,
-    UserDetailsCardComponent,
+    EditAgeAddTenPipe
   ],
   imports: [
     CommonModule,
     FormsModule,
     RouterModule,
+    MatCardModule,
+    MatButtonModule,
     
   ],
   exports: [
@@ -28,7 +32,7 @@ import { UserDetailsCardComponent } from './components/user-details-card/user-de
     MyButtonComponent,
     CardTemplateComponent,
     Page404Component,
-    UserDetailsCardComponent
+    
   ]
 })
 export class SharedModule { }

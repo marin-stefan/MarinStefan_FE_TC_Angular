@@ -3,6 +3,7 @@ import { CardTemplateComponent } from 'src/app/modules/shared/components/card-te
 import { CardModel } from 'src/app/modules/shared/interfaces/card-model';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { SortByFirstNamePipe } from 'src/app/pipes/sort-by-first-name.pipe';
 
 @Component({
   selector: 'app-users-shell',
@@ -15,17 +16,20 @@ export class UsersShellComponent implements OnInit {
   public status: boolean = false; // status for each user
   public baseCards: CardModel[]; // our mai user array as if in db
   public cards: CardModel[]; // our copy that we modify
+  public pipedBaseCards: CardModel[];
 
   @ViewChildren(CardTemplateComponent) viewChildren: QueryList<CardTemplateComponent>
 
   constructor(
     private _userService: UserService,
-    private _router: Router
+    private _router: Router,
+    private _sortByFirstName : SortByFirstNamePipe
   ) { }
 
   ngOnInit(): void {
     this.baseCards = this._userService.mapUsers(); // main copy from bd ..we're altering this..not the db
-    this.cards = JSON.parse(JSON.stringify(this.baseCards));  //the copy of the bd to send to the html
+    this.pipedBaseCards = this._sortByFirstName.transform(this.baseCards);
+    this.cards = JSON.parse(JSON.stringify(this.pipedBaseCards));  //the copy of the bd to send to the html
   };
 
   // inverts the boolean value of the status and result for showHiddenCards method
@@ -40,17 +44,17 @@ export class UsersShellComponent implements OnInit {
   };
 
   // filters cards array which is displayed by the html
-  genderSort(event:any):void{
-    switch(event.value){
+  genderSort(value:string):void{
+    switch(value){
       case 'all':
-        this.cards = JSON.parse(JSON.stringify(this.baseCards));
+        this.cards = JSON.parse(JSON.stringify(this.pipedBaseCards));
         break;
       case 'male':
-        this.cards = JSON.parse(JSON.stringify(this.baseCards));
+        this.cards = JSON.parse(JSON.stringify(this.pipedBaseCards));
         this.cards = this.cards.filter((card:CardModel)=> card.property === 'Gender: male');
         break;
       case 'female':
-        this.cards = JSON.parse(JSON.stringify(this.baseCards));
+        this.cards = JSON.parse(JSON.stringify(this.pipedBaseCards));
         this.cards = this.cards.filter((card:CardModel)=> card.property === 'Gender: female');
         break;
     }
@@ -68,7 +72,6 @@ export class UsersShellComponent implements OnInit {
       : this.viewChildren.toArray().forEach(userCard => userCard.info.status = true)
   };
 
-
   // at pencil icon click we redirect to the edit-user page of the user with id userId
   public goToEditPage(userId:number){
     this._router.navigateByUrl('/edit-user/'+ userId)
@@ -77,7 +80,7 @@ export class UsersShellComponent implements OnInit {
 
   // at user icon click we redirect to the user-details page of the user with id userId
   public goToDetailsPage(userId:number){
-    this._router.navigateByUrl('/users/'+ userId)
+    this._router.navigateByUrl(''+ userId + '/all')
     // this._router.navigate[('/edit-user/' + userId)]
   };
 

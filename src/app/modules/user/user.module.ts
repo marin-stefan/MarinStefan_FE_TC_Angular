@@ -1,23 +1,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UserRoutingModule } from './user-routing.module';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatCardModule} from '@angular/material/card';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+
+import { SharedModule } from '../shared/shared.module';
+import { HeaderModule } from '../header/header.module';
+import { FooterModule } from '../footer/footer.module';
+
 import { EditUserShellComponent } from './containers/edit-user-shell/edit-user-shell.component';
 import { AddUserShellComponent } from './containers/add-user-shell/add-user-shell.component';
 import { UsersShellComponent } from './containers/users-shell/users-shell.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatIconModule } from '@angular/material/icon';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { ReactiveFormsModule } from '@angular/forms';
 import { UserBasicFormComponent } from './components/user-basic-form/user-basic-form.component';
 import { UserAddressFormComponent } from './components/user-address-form/user-address-form.component';
-import { SharedModule } from '../shared/shared.module';
-import { UsersPageComponent } from './containers/users-shell/users-page/users-page.component';
-import { HeaderModule } from '../header/header.module';
-import { FooterModule } from '../footer/footer.module';
-import { AddUserPageComponent } from './containers/add-user-shell/add-user-page/add-user-page.component';
-import { EditUserPageComponent } from './containers/edit-user-shell/edit-user-page/edit-user-page.component';
-import { UserDetailsShellComponent } from './containers/user-details-shell/user-details-shell.component';
-import { UserDetailsPageComponent } from './containers/user-details-shell/user-details-page/user-details-page.component';
+import { UserAllDetailsShellComponent } from './containers/user-all-details-shell/user-all-details-shell.component';
+import { UserDetailsCardComponent } from './components/user-details-card/user-details-card.component';
+import { UserPersonalDetailsShellComponent } from './containers/user-personal-details-shell/user-personal-details-shell.component';
+import { UserCompanyDetailsShellComponent } from './containers/user-company-details-shell/user-company-details-shell.component';
+import { UserDetailsLayoutComponent } from './components/user-details-layout/user-details-layout.component';
+import { UsersSideBarMenuShellComponent } from './containers/users-side-bar-menu-shell/users-side-bar-menu-shell.component';
+
+alert("user module")
 
 
 
@@ -28,31 +38,37 @@ import { UserDetailsPageComponent } from './containers/user-details-shell/user-d
     UserBasicFormComponent,
     UserAddressFormComponent,
     EditUserShellComponent,
-    UsersPageComponent,
-    AddUserPageComponent,
-    EditUserPageComponent,
-    UserDetailsShellComponent,
-    UserDetailsPageComponent,
+    UserAllDetailsShellComponent,
+    UserDetailsCardComponent,
+    UserPersonalDetailsShellComponent,
+    UserCompanyDetailsShellComponent,
+    UserDetailsLayoutComponent,
+    UsersSideBarMenuShellComponent,
   ],
   imports: [
     CommonModule,
     MatButtonToggleModule,
     MatIconModule,
+    MatTabsModule,
     MatButtonModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
     SharedModule,
     HeaderModule,
-    FooterModule
+    FooterModule,
+    RouterModule,
+    MatCardModule,
+    UserRoutingModule
   ],
   exports: [
     AddUserShellComponent,
     EditUserShellComponent,
     UsersShellComponent,
-    UsersPageComponent,
-    AddUserPageComponent,
-    EditUserPageComponent,
-    UserDetailsPageComponent
+    UserDetailsCardComponent,
+    UserPersonalDetailsShellComponent,
+    UserCompanyDetailsShellComponent,
+    UserDetailsLayoutComponent,
+    UsersSideBarMenuShellComponent
   ]
 })
 export class UserModule { }

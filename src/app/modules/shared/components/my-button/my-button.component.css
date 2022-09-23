@@ -1,5 +1,9 @@
 button{
-    margin-left: 10px;
+    margin-top: 10px;
+    min-height: 35px;
+    border-radius: 5px;
+    padding:10px;
+    color:#7B1FA2;
 }
 
 .cancel{

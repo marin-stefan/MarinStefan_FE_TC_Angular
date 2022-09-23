@@ -4,14 +4,15 @@
     flex-wrap: wrap;
     justify-content: space-around;
     background-color: bisque;
+    width: 80%
 }
 
 .userCard{
     border:1px solid green;
     background-color:aliceblue;
-    width: 200px;
+    width: 300px;
     border-radius: 10px;
-    padding: 5px;
+    padding: 3px;
     margin: 10px;   
 }
 
@@ -46,5 +47,13 @@ button{
     background-color:#7B1FA2;
 }
 
+.icons{
+    margin: 2px 20px 2px 0;
+    cursor: pointer;
+}
 
+.userMain{
+    display:flex;
+    justify-content: space-between;
+}
 

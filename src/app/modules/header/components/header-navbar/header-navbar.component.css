@@ -10,7 +10,12 @@
     margin-left: 10px;
     padding: 10px 20px;
     background-color: cornsilk;
-    border-radius: 10px;;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.navBarElem:hover{
+    background-color: rgb(218, 207, 165);
 }
 
 a{

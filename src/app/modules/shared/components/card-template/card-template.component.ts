@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { CardModel } from '../../interfaces/card-model';
 
 @Component({
@@ -9,12 +9,15 @@ import { CardModel } from '../../interfaces/card-model';
 })
 export class CardTemplateComponent implements OnInit {
 
+  public avatarId: number ;
+
   @Input() info: CardModel;
   @Input() index: number;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.avatarId = ((Math.floor(Math.random() * 6))+1)
   };
 
 }
