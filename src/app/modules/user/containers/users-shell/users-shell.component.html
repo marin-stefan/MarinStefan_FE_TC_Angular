@@ -10,16 +10,19 @@
 
     <div class="userList">
         <ng-container *ngFor="let card of cards; let i = index">
+            
             <ng-container *ngIf="showHiddenCards; else showOnlyActive" >
                 <app-card-template
                     [ngClass]="{'userCard':true , 'gray':!card.status}"
                     [info]="card"
                     [index]="i">
                     <h2 title >User Details</h2>
-                    <mat-icon icon (click)="goToDetailsPage(card.id)" class="icons">account_circle</mat-icon>
+                    <mat-icon icon (click)="goToDetailsPage(card.id)" class="icons">
+                        account_circle
+                    </mat-icon>
                     <app-my-button 
-                    button (click)="statusChange({status: card.status, id: card.id, index: i})" 
-                    [text]="card.status ? 'de-activate': 'activate'">
+                        button (click)="statusChange({status: card.status, id: card.id, index: i})" 
+                        [text]="card.status ? 'de-activate': 'activate'">
                     </app-my-button>
                     <mat-icon pencil (click)="goToEditPage(card.id)" class="icons">edit</mat-icon>
                     <p status>{{card.status ? "Status : Active" : "Status : non-Active" }}</p><br>

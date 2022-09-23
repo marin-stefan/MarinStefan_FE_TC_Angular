@@ -8,6 +8,7 @@ import { Page404Component } from './components/page404/page404.component';
 import { RouterModule } from '@angular/router';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
+import { EditAgeAddTenPipe } from 'src/app/pipes/edit-age-add-ten.pipe';
 
 
 @NgModule({
@@ -16,13 +17,14 @@ import {MatButtonModule} from '@angular/material/button';
     MyButtonComponent,
     CardTemplateComponent,
     Page404Component,
+    EditAgeAddTenPipe
   ],
   imports: [
     CommonModule,
     FormsModule,
     RouterModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
     
   ],
   exports: [

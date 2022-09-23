@@ -9,12 +9,15 @@ import { CardModel } from '../../interfaces/card-model';
 })
 export class CardTemplateComponent implements OnInit {
 
+  public avatarId: number ;
+
   @Input() info: CardModel;
   @Input() index: number;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.avatarId = ((Math.floor(Math.random() * 6))+1)
   };
 
 }
