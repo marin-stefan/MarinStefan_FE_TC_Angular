@@ -17,14 +17,14 @@
                     [info]="card"
                     [index]="i">
                     <h2 title >User Details</h2>
-                    <mat-icon icon (click)="goToDetailsPage(card.id)" class="icons">
+                    <mat-icon icon routerLink="user-details/{{card.id}}" class="icons">
                         account_circle
                     </mat-icon>
                     <app-my-button 
                         button (click)="statusChange({status: card.status, id: card.id, index: i})" 
                         [text]="card.status ? 'de-activate': 'activate'">
                     </app-my-button>
-                    <mat-icon pencil (click)="goToEditPage(card.id)" class="icons">edit</mat-icon>
+                    <mat-icon pencil routerLink="edit-user/{{card.id}}" class="icons">edit</mat-icon>
                     <p status>{{card.status ? "Status : Active" : "Status : non-Active" }}</p><br>
                 </app-card-template>
             </ng-container>
@@ -35,12 +35,12 @@
                     [info]="card"
                     [index]="i">
                     <h2 title >User Details</h2>
-                    <mat-icon icon (click)="goToDetailsPage(card.id)" class="icons">elderly</mat-icon>
+                    <mat-icon icon routerLink="user-details/{{card.id}}" class="icons">elderly</mat-icon>
                     <app-my-button 
                         button (click)="statusChange({status: card.status, id: card.id, index: i})" 
                         [text]="card.status ? 'de-activate': 'activate'">
                     </app-my-button>
-                    <mat-icon pencil (click)="goToEditPage(card.id)" class="icons">edit</mat-icon>
+                    <mat-icon pencil routerLink="edit-user/{{card.id}}" class="icons">edit</mat-icon>
                     <p status>{{card.status ? "Status : Active" : "Status : non-Active" }}</p>
                 </app-card-template>
             </ng-template>

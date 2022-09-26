@@ -1,6 +1,5 @@
-<div class="registerBoxHost">
-    <form [formGroup]="theForm" (ngSubmit)="submitForm()">
-        <div class="registerBox">
+
+    <form [formGroup]="logForm">
 
             <h2>{{functionality === 'register'? 'Register': 'LogIn'}}</h2><br>
 
@@ -36,15 +35,6 @@
                     </div>
                 </fieldset><br>
             </ng-container>
-            <button 
-                type="submit"
-                [disabled]="!theForm?.valid">
-                {{functionality === 'register'? 'Register': 'LogIn'}}
-            </button>
-            <ng-container *ngIf="functionality === 'login'">
-                <a routerLink="/register">Register</a>
-            </ng-container>
-
-        </div>
+            
     </form>
-</div>
+

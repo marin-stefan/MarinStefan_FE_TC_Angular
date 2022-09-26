@@ -27,7 +27,7 @@ import { UserCompanyDetailsShellComponent } from './containers/user-company-deta
 import { UserDetailsLayoutComponent } from './components/user-details-layout/user-details-layout.component';
 import { UsersSideBarMenuShellComponent } from './containers/users-side-bar-menu-shell/users-side-bar-menu-shell.component';
 
-alert("user module")
+alert("user module");
 
 
 

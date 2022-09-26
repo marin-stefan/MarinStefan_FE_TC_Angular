@@ -25,7 +25,7 @@ export class HeaderMenuComponent implements OnInit {
     // calls the logout function in auth which changes the variable that guard service needs and thus route is not authorized
     this.accountService.attemptlogout();
     // and navigate to login
-    this.router.navigateByUrl('/login')
+    this.router.navigate(['login'])
   };
 
   getLoggedAccountInfo():void{

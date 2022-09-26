@@ -134,6 +134,8 @@
 * - Any route but /login or /register will be redirected to /login.
 * - After a successful login user module will be loaded and user List component will be displayed.
 * - Edited my grammar for this README so more people will understand :).
+* - Edited log-form component that handled unnecessary data and moved logic to parents.
+* - Refactored routes with proper default cases due to some bugs and issues.
 
 
 

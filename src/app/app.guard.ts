@@ -21,8 +21,7 @@ export class AppGuard implements CanActivate, CanActivateChild, CanLoad{
         return true
       }else {
         window.alert("Please Log In")
-        // this.router.navigateByUrl('/login'); // after submit - redirect to login
-        return this.router.parseUrl('/login')
+        this.router.navigate(['login']) // after submit - redirect to login
       }
   };
 
@@ -32,9 +31,8 @@ export class AppGuard implements CanActivate, CanActivateChild, CanLoad{
       if(this.authService.checkForAnyLoggedUser()){ //this returns boolean and we can authorize routes
         return true
       }else {
-        window.alert("Please Log In")
-        // this.router.navigateByUrl('/login'); // after submit - redirect to login
-        return this.router.parseUrl('/login')
+        window.alert("Please Log In") 
+        this.router.navigate(['login'])  // after submit - redirect to login
       }
   };
 
@@ -43,8 +41,7 @@ export class AppGuard implements CanActivate, CanActivateChild, CanLoad{
       return true
     }else {
       window.alert("Please Log In")
-      // this.router.navigateByUrl('/login'); // after submit - redirect to login
-      return this.router.parseUrl('/login')
+      this.router.navigate(['login'])  // after submit - redirect to login
     }
   }
   

@@ -57,7 +57,7 @@ export class EditUserShellComponent implements OnInit {
       activated: contactInfo.activated 
     }
     this.userService.editUser(newUser);
-    this.router.navigate(['/users']); // after submit - redirect to users list page
+    this.router.navigate(['users']); // after submit - redirect to users list page
   }
 
   public buildAddressLine(address:AddressModel):string{

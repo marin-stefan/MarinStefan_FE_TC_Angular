@@ -22,7 +22,7 @@ export class UsersShellComponent implements OnInit {
 
   constructor(
     private _userService: UserService,
-    private _router: Router,
+    private router: Router,
     private _sortByFirstName : SortByFirstNamePipe
   ) { }
 
@@ -72,17 +72,6 @@ export class UsersShellComponent implements OnInit {
       : this.viewChildren.toArray().forEach(userCard => userCard.info.status = true)
   };
 
-  // at pencil icon click we redirect to the edit-user page of the user with id userId
-  public goToEditPage(userId:number){
-    this._router.navigateByUrl('/edit-user/'+ userId)
-    // this._router.navigate[('/edit-user/' + userId)]
-  };
-
-  // at user icon click we redirect to the user-details page of the user with id userId
-  public goToDetailsPage(userId:number){
-    this._router.navigateByUrl(''+ userId + '/all')
-    // this._router.navigate[('/edit-user/' + userId)]
-  };
 
 }
 
