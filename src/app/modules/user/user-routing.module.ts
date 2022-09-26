@@ -11,13 +11,14 @@ import { EditUserShellComponent } from "./containers/edit-user-shell/edit-user-s
 
 
 const routes: Routes = [
-    {path: 'users', component : UsersShellComponent},
+    {path: '', component : UsersShellComponent},
     {path: 'add-user', component: AddUserShellComponent },
     {path: 'edit-user/:id', component: EditUserShellComponent},
     {
-        path: ':id', 
+        path: 'user-details/:id', 
         component: UserDetailsLayoutComponent,
         children : [
+            {path: '', redirectTo : 'all', pathMatch: 'full'},
             {path: 'all', component : UserAllDetailsShellComponent},
             {path: 'personal', component: UserPersonalDetailsShellComponent},
             {path: 'company', component: UserCompanyDetailsShellComponent},

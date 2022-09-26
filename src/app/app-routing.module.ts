@@ -19,9 +19,9 @@ const appRoute: Routes = [
     path: "",
     component: NonAuthorizedLayoutComponent,
     children: [
+      {path: '', redirectTo: 'login', pathMatch: 'full' },
       {path: 'login', component : LoginShellComponent},
       {path: 'register', component: RegisterShellComponent},
-      {path: '', redirectTo: 'login', pathMatch: 'full' },
     ]
   },
 
@@ -29,10 +29,13 @@ const appRoute: Routes = [
     path: "",
     component: AuthorizedLayoutComponent,
     children: [
-      {path:'home', redirectTo : 'users', pathMatch: 'full'},
-      {path: 'vehicles', component: VehiclesShellComponent, canActivate: [AppGuard] },
+      {path:'home', redirectTo : 'users', pathMatch: 'full' },
       {
-        path: "",  
+        path: 'vehicles', component: VehiclesShellComponent, 
+        canActivate: [AppGuard] 
+      },
+      {
+        path: "users",  
         loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
         canLoad: [AppGuard],
       },

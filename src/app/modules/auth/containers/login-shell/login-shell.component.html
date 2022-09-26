@@ -1,3 +1,23 @@
+<div class="loginBoxHost">
+    <form [formGroup]="parentLogForm" (ngSubmit)="logIn()">
+        <div class="loginBox">
+            <app-log-form 
+                [functionality]="'login'" 
+                [parentForm]="parentLogForm">
+            </app-log-form>
+            <button 
+                type="submit"
+                [disabled]="!parentLogForm?.valid">
+                LogIn
+            </button>
+            <ng-container>
+                <a routerLink="/register">Register</a>
+            </ng-container>
+        </div>
+    </form>
+</div>
 
-<app-log-form [functionality]="'login'"></app-log-form>
+
+
+
 

@@ -21,8 +21,8 @@ export class UserAllDetailsShellComponent implements OnInit {
 
   ngOnInit(): void {
     // we get the user id from url
-    let url = (this.router.url).split('/')
-    this.userId = parseInt(url[1])
+    let url = (this.router.url).split('/');
+    this.userId = parseInt(url[3]);
     this.populateUserVariable(this.userId); // we get our main baseUser refference 
   };
 

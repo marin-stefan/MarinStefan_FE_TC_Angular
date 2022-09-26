@@ -44,7 +44,7 @@ export class AddUserShellComponent implements OnInit {
       activated: contactInfo.activated 
     }
     this.userService.addNewUser(newUser);
-    this.router.navigate(['/users']); // after submit - redirect to users list page
+    this.router.navigate(['users']); // after submit - redirect to users list page
   };
   
   public buildAddressLine(address:AddressModel):string{
