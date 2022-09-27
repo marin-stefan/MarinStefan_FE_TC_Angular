@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CardModel } from '../../shared/interfaces/card-model';
+import { RandomApiResponse, RandomUserModel } from '../interfaces/random-user.model';
 import { UserModel } from '../interfaces/user-model';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -80,35 +83,74 @@ export class UserService {
       activated : false
     }
   ];
+  public dbUsers2:UserModel[]=[];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  // returns the array of users from DB
+  getUsersFromApi():Observable<UserModel[]>{
+    // return the user list from randomuser.me
+    return this.http.get<RandomApiResponse>("https://randomuser.me/api/?results=10").pipe(
+      map(
+        (res) => {
+          console.log(res)
+          return res.results.filter((user) => (user.id).value).map(
+            (user) => {
+              const filteredUser = {
+                id: parseInt((user.id).value) ,
+                  firstName: (user.name).first ,
+                  lastName: (user.name).last ,
+                  age: ((user.dob).age).toString() ,
+                  company: "Bla BLa INC" ,
+                  department: "frontEnd" ,
+                  gender: user.gender ,
+                  email: user.email ,
+                  address1: ((user.location).street).name+" "+((user.location).street).number+" "+(user.location).city+" "+
+                    (user.location).postcode+" "+(user.location).state+" "+(user.location).country ,
+                  address2: "" ,
+                  address3: "" ,
+                  activated: true 
+              }
+              this.dbUsers2.push(filteredUser)
+              return filteredUser
+            }
+          )
+        }
+      )
+    ) 
+  };
+
+  //returns the array of users from DB
   getUsers(): UserModel[]{
-    return this.dbUsers
+    return this.dbUsers2
+  };
+  
+  mapUsersFromApi():Observable<CardModel[]>{
+    return this.getUsersFromApi().pipe(
+      map(
+        (res)=> {
+          return res.map(
+            (item) => {
+              return {
+                id: item.id,
+                type: "user",
+                displayName: "Name: "+ item.firstName +" "+ item.lastName,
+                age: "Age: " + item.age,
+                property: "Gender: "+ item.gender, 
+                status: item.activated,
+                specificInfo: "Company: " + item.company,  
+                specificInfo2: "Department: " + item.department,  
+                specificInfo3: "Email: " + item.email,  
+                specificInfo4: "Address: " + item.address1,  
+                specificInfo5: item.address2,  
+                specificInfo6: item.address3,  
+              }
+            }
+          )
+        }
+      )
+    )
   };
 
-  // maps the array of user objects into a array of CardModel objects
-  mapUsers():CardModel[]{
-    let tempUsers = this.getUsers();
-    let mappedUsers = tempUsers.map((user:UserModel) => {
-      return {
-        id : user.id,
-        type:"user",
-        displayName : "Name: " + user.firstName + " " + user.lastName ,
-        age: "Age: " + user.age, 
-        property: "Gender: " + user.gender,
-        status: user.activated, 
-        specificInfo: "Company: " + (user.company ? user.company : ""),
-        specificInfo2: "Department: " + (user.department ? user.department : ""),
-        specificInfo3: "Email: " + (user.email ? user.email: ""),
-        specificInfo4: user.address1? "Address: "+user.address1 : "",
-        specificInfo5: user.address2? "Address: "+user.address2 : "",
-        specificInfo6: user.address3? "Address: "+user.address3 : ""
-      }
-    })
-    return mappedUsers;
-  };
 
   // adds the new user object to the DB array of user objects
   addNewUser(newUser:UserModel):void{
@@ -144,6 +186,7 @@ export class UserService {
       })
     }
     return response;
+    // return false
   };
 
 }

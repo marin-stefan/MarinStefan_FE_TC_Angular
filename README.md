@@ -140,3 +140,13 @@
 
 
 
+Day-11
+0.1) Refactor current application and replace return type of services methods on Observable<...>
+0.2) Replace mock user array with users from randomuser.me (Roni will add here)
+1) Add paginator (mat-paginator) to user-list component and refactor that component to work with portion of items (use randomuser.me)
+    1.1) Add switchMap operator to http call for users (to avoid multiple loading of users in case of fast changing pages)
+    1.2) Add tap operator to handle loading variable (mat-spinner)
+2) Add search field (formControl) at the top of user-list component (it should work as a filter) (firstName)
+    2.1) Add debounceTime operator (to avoid multiple calls while typing)
+    2.2) Add withLatestFrom operator (to get access to array of users)
+    2.3) Use valuechanges to handle changes inside control

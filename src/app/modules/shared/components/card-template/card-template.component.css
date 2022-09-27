@@ -17,3 +17,8 @@
 mat-card-subtitle{
     color: rgb(14, 139, 227);
 }
+
+.example-vehicle-image {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbFC0gJIB8hPopD4Zn1quKroe28lD27XyQVsCIsc-aOQ&s');
+    background-size: cover;
+}

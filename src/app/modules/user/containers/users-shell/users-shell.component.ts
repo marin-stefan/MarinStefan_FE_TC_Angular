@@ -2,8 +2,8 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { CardTemplateComponent } from 'src/app/modules/shared/components/card-template/card-template.component';
 import { CardModel } from 'src/app/modules/shared/interfaces/card-model';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
 import { SortByFirstNamePipe } from 'src/app/pipes/sort-by-first-name.pipe';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-users-shell',
@@ -14,24 +14,29 @@ export class UsersShellComponent implements OnInit {
 
   public showHiddenCards = true; // variable for showing hidden cards
   public status: boolean = false; // status for each user
-  public baseCards: CardModel[]; // our mai user array as if in db
-  public cards: CardModel[]; // our copy that we modify
+  public baseCards: CardModel[] =[]; // our mai user array as if in db
+  public cards: CardModel[] =[] // our copy that we modify
   public pipedBaseCards: CardModel[];
 
   @ViewChildren(CardTemplateComponent) viewChildren: QueryList<CardTemplateComponent>
 
+
   constructor(
     private _userService: UserService,
-    private router: Router,
     private _sortByFirstName : SortByFirstNamePipe
   ) { }
 
   ngOnInit(): void {
-    this.baseCards = this._userService.mapUsers(); // main copy from bd ..we're altering this..not the db
-    this.pipedBaseCards = this._sortByFirstName.transform(this.baseCards);
-    this.cards = JSON.parse(JSON.stringify(this.pipedBaseCards));  //the copy of the bd to send to the html
+    this._userService.mapUsersFromApi().subscribe((cards)=>{
+      cards.map((elem)=>{
+        this.baseCards.push(elem)
+      })
+      this.pipedBaseCards = this._sortByFirstName.transform(this.baseCards);
+      this.cards = JSON.parse(JSON.stringify(this.pipedBaseCards));  //the copy of the bd to send to the html
+    })
   };
 
+  
   // inverts the boolean value of the status and result for showHiddenCards method
   hideDisplayNonActive():void{
     this.showHiddenCards = !this.showHiddenCards;
@@ -41,6 +46,7 @@ export class UsersShellComponent implements OnInit {
   // inverts the boolean value of that certain user object's status value
   statusChange(eventData: {status: boolean, id: number, index: number}):void{
     this.cards[eventData.index].status = !this.cards[eventData.index].status
+    console.log(this._userService.getUsers())
   };
 
   // filters cards array which is displayed by the html
