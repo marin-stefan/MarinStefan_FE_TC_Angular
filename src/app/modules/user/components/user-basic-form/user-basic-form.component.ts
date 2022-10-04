@@ -11,7 +11,7 @@ import { UserModel } from '../../interfaces/user-model';
 })
 
 export class UserBasicFormComponent implements OnInit {
-
+  public emaill:string = '';
   public basicInfoForm: FormGroup; // declaring the form
 
   @Input() parentForm: FormGroup ; //our parent form
@@ -24,7 +24,6 @@ export class UserBasicFormComponent implements OnInit {
     this.buildBasicInfoForm();
     this.parentForm.addControl('basicUserInfo', this.basicInfoForm);
     this.user? this.patchForm(this.user) : null // if user obj present then we prefill inputs
-    // this.checkmyemail()
   };
 
   // generating our parent form

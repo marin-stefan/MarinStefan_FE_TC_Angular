@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, CanActivate, RouterStateSnapshot, UrlTree, CanActivateChild, CanLoad } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, CanActivate, RouterStateSnapshot, UrlTree, CanActivateChild, CanLoad, CanDeactivate } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './modules/auth/services/auth.service';
+import { EditUserShellComponent } from './modules/user/containers/edit-user-shell/edit-user-shell.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AppGuard implements CanActivate, CanActivateChild, CanLoad{
+export class AppGuard implements CanActivate, CanActivateChild, CanLoad, CanDeactivate<EditUserShellComponent>{
 
   constructor(
     private router: Router, 
@@ -42,6 +43,19 @@ export class AppGuard implements CanActivate, CanActivateChild, CanLoad{
     }else {
       window.alert("Please Log In")
       this.router.navigate(['login'])  // after submit - redirect to login
+    }
+  }
+
+  canDeactivate(
+    component: EditUserShellComponent,
+    currentRoute: ActivatedRouteSnapshot,
+    currentState: RouterStateSnapshot,
+    nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    if(component.isFormvalid()){
+      return true
+    }else{
+      window.confirm("Unsaved changes")
+      return false
     }
   }
   

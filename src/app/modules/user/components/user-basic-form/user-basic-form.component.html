@@ -42,7 +42,7 @@
 
         <fieldset>
             <legend>Email</legend>
-            <input type="email" name="email" formControlName="email">
+            <input type="email" name="email" formControlName="email" [(ngModel)]="emaill">
             <mat-spinner *ngIf="userEmail.pending" [diameter]="20" ></mat-spinner>
             <p *ngIf="userEmail.pending">...please wait</p>
             <div *ngIf="userEmail.invalid && (userEmail.dirty || userEmail.touched)" class="red-text">

@@ -31,7 +31,7 @@ export class UserService {
                     company: "Bla BLa INC" ,
                     department: "frontEnd" ,
                     gender: user.gender ,
-                    email: user.email ,
+                    email: ((user.name).first+(user.name).last+"@gmail.com").toLowerCase() ,
                     address1: ((user.location).street).name+" "+((user.location).street).number+" "+(user.location).city+" "+
                       (user.location).postcode+" "+(user.location).state+" "+(user.location).country ,
                     address2: "" ,

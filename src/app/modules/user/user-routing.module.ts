@@ -7,13 +7,14 @@ import { UserPersonalDetailsShellComponent } from "./containers/user-personal-de
 import { UserCompanyDetailsShellComponent } from "./containers/user-company-details-shell/user-company-details-shell.component"
 import { AddUserShellComponent } from "./containers/add-user-shell/add-user-shell.component"
 import { EditUserShellComponent } from "./containers/edit-user-shell/edit-user-shell.component"
+import { AppGuard } from "src/app/app.guard"
 
 
 
 const routes: Routes = [
     {path: '', component : UsersShellComponent},
     {path: 'add-user', component: AddUserShellComponent },
-    {path: 'edit-user/:id', component: EditUserShellComponent},
+    {path: 'edit-user/:id', component: EditUserShellComponent, canDeactivate: [AppGuard]},
     {
         path: 'user-details/:id', 
         component: UserDetailsLayoutComponent,
