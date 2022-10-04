@@ -1,7 +1,7 @@
 
 <mat-card class="example-card">
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
+      <div mat-card-avatar class="{{info.type==='user'?'example-header-image':'example-vehicle-image'}}"></div>
         <mat-card-title>
             <ng-content select="[title]" ></ng-content>
         </mat-card-title>
@@ -9,7 +9,7 @@
     </mat-card-header>
     <img *ngIf="info.type === 'user'"
       mat-card-image 
-      src="{{'https://www.w3schools.com/w3images/avatar'+ avatarId +'.png'}}" 
+      src="{{info.picture}}" 
       alt="avatar"
     >
     <mat-card-content>

@@ -17,7 +17,6 @@ export class CardTemplateComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.avatarId = ((Math.floor(Math.random() * 6))+1)
   };
 
 }

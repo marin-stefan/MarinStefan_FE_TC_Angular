@@ -137,6 +137,20 @@
 * - Edited log-form component that handled unnecessary data and moved logic to parents.
 * - Refactored routes with proper default cases due to some bugs and issues.
 
+#### task 11 - Replace mock with API, use Observables
 
-
+* - Replaced mock list of users with one fetched from a free API.
+* - Refactored all interfaces to fit the response from the API.
+* - Refactored return type of methods in the user service to be of type observable.
+* - EditUser and AddUser methods just return the user since we can't use the free API to store data.
+* - Added mat-paginator on Users-list component.
+* - Added switchMap to the main http API request.
+* - Added mat-spinner that displays while selected page of users is loading (visible on slow 3g).
+* - Added search-field as formControl at the top of the list of users.
+* - Added withLatestOperator to get latest array or inputs.
+* - Used valuechanges to handle changes inside control.
+* - Searching a name will display results for that certain page (with the selected size of results).
+* - If search returns no match, "mo matches" will be displayed. 
+* - Matches get filtered and displayed.
+* - Clearing search input will display normal list of users on correct page and size of results.
 

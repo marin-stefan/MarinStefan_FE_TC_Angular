@@ -32,12 +32,12 @@ const appRoute: Routes = [
       {path:'home', redirectTo : 'users', pathMatch: 'full' },
       {
         path: 'vehicles', component: VehiclesShellComponent, 
-        canActivate: [AppGuard] 
+        // canActivate: [AppGuard] 
       },
       {
         path: "users",  
         loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
-        canLoad: [AppGuard],
+        // canLoad: [AppGuard],
       },
     ]
   },

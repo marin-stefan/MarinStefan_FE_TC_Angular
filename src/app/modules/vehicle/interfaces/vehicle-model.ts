@@ -4,4 +4,5 @@ export class VehicleModel {
     releaseYear : string;
     color: string;
     carNumber: string;
+    picture: string;
 }

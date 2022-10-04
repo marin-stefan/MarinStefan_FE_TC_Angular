@@ -10,6 +10,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table'
 
 import { SharedModule } from '../shared/shared.module';
 import { HeaderModule } from '../header/header.module';
@@ -27,7 +29,7 @@ import { UserCompanyDetailsShellComponent } from './containers/user-company-deta
 import { UserDetailsLayoutComponent } from './components/user-details-layout/user-details-layout.component';
 import { UsersSideBarMenuShellComponent } from './containers/users-side-bar-menu-shell/users-side-bar-menu-shell.component';
 
-alert("user module");
+// alert("user module");
 
 
 
@@ -58,7 +60,9 @@ alert("user module");
     FooterModule,
     RouterModule,
     MatCardModule,
-    UserRoutingModule
+    UserRoutingModule,
+    MatPaginatorModule,
+    MatTableModule
   ],
   exports: [
     AddUserShellComponent,
@@ -68,7 +72,8 @@ alert("user module");
     UserPersonalDetailsShellComponent,
     UserCompanyDetailsShellComponent,
     UserDetailsLayoutComponent,
-    UsersSideBarMenuShellComponent
+    UsersSideBarMenuShellComponent,
+    MatPaginatorModule
   ]
 })
 export class UserModule { }

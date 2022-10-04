@@ -24,6 +24,7 @@ export class UserBasicFormComponent implements OnInit {
     this.buildBasicInfoForm();
     this.parentForm.addControl('basicUserInfo', this.basicInfoForm);
     this.user? this.patchForm(this.user) : null // if user obj present then we prefill inputs
+    // this.checkmyemail()
   };
 
   // generating our parent form
@@ -75,7 +76,7 @@ export class UserBasicFormComponent implements OnInit {
   // checking if email is duplicate,accounting for the edit-user where the email should already be present
   public checkmyemail(control:FormControl): Promise<any> | Observable<any>{
     let isEmailDuplicate: boolean
-    if(this.user){ // for the edit - we need to discard our own email..and check only the other emails
+    if(this.user){ // for the edit - we need to discard our own email(unless it is not gmail)..and check only the other emails
       isEmailDuplicate = this.userService.checkDuplicateEmail(control.value, this.user.id)
     }else{ // checks all emails for duplicates
       isEmailDuplicate = this.userService.checkDuplicateEmail(control.value)

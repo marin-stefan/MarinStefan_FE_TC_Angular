@@ -31,6 +31,7 @@ export class UserAllDetailsShellComponent implements OnInit {
     const users = this.userService.getUsers();
     this.baseUser = (users.filter((user)=> user.id === id))[0];
     this.completeUser = JSON.parse(JSON.stringify(this.baseUser));
+    console.log(this.completeUser)
   };
 
 }

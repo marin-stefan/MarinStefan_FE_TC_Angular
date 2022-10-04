@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { SortByFirstNamePipe } from './pipes/sort-by-first-name.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { SortByFirstNamePipe } from './pipes/sort-by-first-name.pipe';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule
   ],
   exports: [],
   providers: [ SortByFirstNamePipe ],
