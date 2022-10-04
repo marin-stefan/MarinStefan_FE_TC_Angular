@@ -11,4 +11,5 @@ export class UserModel {
     address2: string ;
     address3: string ;
     activated: boolean ;
+    picture : string;
 }

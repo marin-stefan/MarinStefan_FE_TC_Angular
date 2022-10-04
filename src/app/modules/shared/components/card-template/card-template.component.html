@@ -9,11 +9,10 @@
     </mat-card-header>
     <img *ngIf="info.type === 'user'"
       mat-card-image 
-      src="{{'https://www.w3schools.com/w3images/avatar'+ avatarId +'.png'}}" 
+      src="{{info.picture}}" 
       alt="avatar"
     >
     <mat-card-content>
-        <p>{{info.id}}</p>
         <p>{{info.displayName}}</p>
         <p>{{info.age | editAgeAddTen}}</p>
         <p>{{info.property}}</p>

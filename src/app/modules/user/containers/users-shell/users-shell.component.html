@@ -1,3 +1,4 @@
+
 <div class="userMain">
 
     <app-users-side-bar-menu-shell 
@@ -7,44 +8,70 @@
         (newHideDisplayNonActiveEvent)="hideDisplayNonActive()"
         (newActivateCardsEvent)="activateCards()">
     </app-users-side-bar-menu-shell>
-
-    <div class="userList">
-        <ng-container *ngFor="let card of cards; let i = index">
-            
-            <ng-container *ngIf="showHiddenCards; else showOnlyActive" >
-                <app-card-template
-                    [ngClass]="{'userCard':true , 'gray':!card.status}"
-                    [info]="card"
-                    [index]="i">
-                    <h2 title >User Details</h2>
-                    <mat-icon icon routerLink="user-details/{{card.id}}" class="icons">
-                        account_circle
-                    </mat-icon>
-                    <app-my-button 
-                        button (click)="statusChange({status: card.status, id: card.id, index: i})" 
-                        [text]="card.status ? 'de-activate': 'activate'">
-                    </app-my-button>
-                    <mat-icon pencil routerLink="edit-user/{{card.id}}" class="icons">edit</mat-icon>
-                    <p status>{{card.status ? "Status : Active" : "Status : non-Active" }}</p><br>
-                </app-card-template>
-            </ng-container>
-
-            <ng-template #showOnlyActive >
-                <app-card-template *ngIf="card.status"
-                    [ngClass]="{'userCard':true , 'gray':!card.status}"
-                    [info]="card"
-                    [index]="i">
-                    <h2 title >User Details</h2>
-                    <mat-icon icon routerLink="user-details/{{card.id}}" class="icons">elderly</mat-icon>
-                    <app-my-button 
-                        button (click)="statusChange({status: card.status, id: card.id, index: i})" 
-                        [text]="card.status ? 'de-activate': 'activate'">
-                    </app-my-button>
-                    <mat-icon pencil routerLink="edit-user/{{card.id}}" class="icons">edit</mat-icon>
-                    <p status>{{card.status ? "Status : Active" : "Status : non-Active" }}</p>
-                </app-card-template>
-            </ng-template>
-        </ng-container>
-    </div>
     
+    
+    <div class="userListMain">
+       
+        <mat-paginator 
+            class="mat-elevation-z8"
+            [length]="999"
+            [pageIndex]="0"
+            [pageSize]="5"
+            [pageSizeOptions]="[5, 10, 25]"
+            (page)="pageEvent($event)"
+            >
+        </mat-paginator>
+        <div class="userSearch">
+            <p>Search Users By First Name</p>
+            <input type="text" [formControl]="searchFieldFilter" [(ngModel)]="curValue">
+            <p *ngIf="curValue.length>0"><i>you are searching for : {{curValue}}</i></p>
+        </div>
+        <mat-spinner *ngIf="loading" [diameter]="300" class="loadSpinner"></mat-spinner>
+
+        <div class="userList" [ngClass]="{'hide': loading}" >
+            <ng-container *ngIf="cards.length<1">No results match you query</ng-container>
+            
+            <ng-container *ngFor="let card of cards; let i = index" >
+                <ng-container *ngIf="showHiddenCards; else showOnlyActive" >
+                    <app-card-template
+                        [ngClass]="{'userCard':true , 'gray':!card.status}"
+                        [info]="card"
+                        [index]="i">
+                        <h2 title >User Details</h2>
+                        <mat-icon icon routerLink="user-details/{{card.id}}" class="icons">
+                            account_circle
+                        </mat-icon>
+                        <app-my-button 
+                            button (click)="statusChange({status: card.status, id: card.id, index: i})" 
+                            [text]="card.status ? 'de-activate': 'activate'">
+                        </app-my-button>
+                        <mat-icon pencil routerLink="edit-user/{{card.id}}" class="icons">edit</mat-icon>
+                        <p status>{{card.status ? "Status : Active" : "Status : non-Active" }}</p><br>
+                    </app-card-template>
+                </ng-container>
+
+                <ng-template #showOnlyActive >
+                    <app-card-template *ngIf="card.status"
+                        [ngClass]="{'userCard':true , 'gray':!card.status}"
+                        [info]="card"
+                        [index]="i">
+                        <h2 title >User Details</h2>
+                        <mat-icon icon routerLink="user-details/{{card.id}}" class="icons">elderly</mat-icon>
+                        <app-my-button 
+                            button (click)="statusChange({status: card.status, id: card.id, index: i})" 
+                            [text]="card.status ? 'de-activate': 'activate'">
+                        </app-my-button>
+                        <mat-icon pencil routerLink="edit-user/{{card.id}}" class="icons">edit</mat-icon>
+                        <p status>{{card.status ? "Status : Active" : "Status : non-Active" }}</p>
+                    </app-card-template>
+                </ng-template>
+            </ng-container>  
+            
+        </div>
+
+        
+
+
+    </div>
 </div>
+

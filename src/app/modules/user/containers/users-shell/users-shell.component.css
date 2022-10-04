@@ -4,7 +4,10 @@
     flex-wrap: wrap;
     justify-content: space-around;
     background-color: bisque;
-    width: 80%
+}
+
+.userListMain{
+    width: 80%;
 }
 
 .userCard{
@@ -57,3 +60,15 @@ button{
     justify-content: space-between;
 }
 
+table {
+    width: 100%;
+  }
+
+  .userSearch{
+    background-color: rgb(216, 224, 232);
+    padding:20px;
+  }
+
+  .hide{
+    display:none;
+  }
