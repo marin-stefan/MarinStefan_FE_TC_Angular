@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { CardModel } from '../../shared/interfaces/card-model';
 import { RandomApiResponse, RandomUserModel } from '../interfaces/random-user.model';
 import { UserModel } from '../interfaces/user-model';
-import { map, Observable, of, switchMap, tap } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,38 +17,37 @@ export class UserService {
   getUsersFromApi(seed:string, page:string, results:string):Observable<UserModel[]>{
     // return the user list from randomuser.me
     return this.http.get<RandomApiResponse>("https://randomuser.me/api/?page="+page+"&results="+results+"&seed="+seed)
-    .pipe(switchMap(data => of(data)))
       .pipe(
         map(
           (res) => {
             return res.results.filter((user) => (user.id).value).map(
-              (user) => {
-                const filteredUser = {
-                  id: parseInt((user.id).value) ,
-                    firstName: (user.name).first ,
-                    lastName: (user.name).last ,
-                    age: ((user.dob).age).toString() ,
-                    company: "Bla BLa INC" ,
-                    department: "frontEnd" ,
-                    gender: user.gender ,
-                    email: ((user.name).first+(user.name).last+"@gmail.com").toLowerCase() ,
-                    address1: ((user.location).street).name+" "+((user.location).street).number+" "+(user.location).city+" "+
-                      (user.location).postcode+" "+(user.location).state+" "+(user.location).country ,
-                    address2: "" ,
-                    address3: "" ,
-                    activated: true,
-                    picture: (user.picture).large 
-                }
-                return filteredUser
-              }
+              (user) => this.userModelMappedUser(user) 
             )
           }
         ),tap((result) => {
-          this.localCopyOfUsers = result
-          console.log("loading results")
+          this.localCopyOfUsers = result // storing data in locaal variable
         })
     )
   };
+
+  userModelMappedUser(user:RandomUserModel):UserModel{
+    return {
+      id: parseInt((user.id).value) ,
+      firstName: (user.name).first ,
+      lastName: (user.name).last ,
+      age: ((user.dob).age).toString() ,
+      company: "Bla BLa INC" ,
+      department: "frontEnd" ,
+      gender: user.gender ,
+      email: ((user.name).first+(user.name).last+"@gmail.com").toLowerCase() ,
+      address1: ((user.location).street).name+" "+((user.location).street).number+" "+(user.location).city+" "+
+        (user.location).postcode+" "+(user.location).state+" "+(user.location).country ,
+      address2: "" ,
+      address3: "" ,
+      activated: true,
+      picture: (user.picture).large
+    }
+  }
 
   mapUsers(users:UserModel[]):CardModel[]{
     return users.map((user) => {

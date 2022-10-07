@@ -14,6 +14,7 @@ export class EditUserShellComponent implements OnInit {
   
   public isFormSaved: boolean = false;
   public isFormvalid = () => this.isFormSaved || !this.parentUserEditForm?.dirty
+  
   public parentUserEditForm = new FormGroup({}); // parent form
   public userId : number ; // id for user object
   public userToEdit : UserModel ; //user object to edit

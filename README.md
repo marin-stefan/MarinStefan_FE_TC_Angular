@@ -154,3 +154,13 @@
 * - Matches get filtered and displayed.
 * - Clearing search input will display normal list of users on correct page and size of results.
 
+
+#### task 12 - Add unsaved changes guard and refactor email combination.
+
+* - Added CanDeactivate guard to edit user path of router to alert at unsaved changes in edit user page.
+* - The Guard deactivates navigating away if form is dirty unless changes have been saved.
+* - Refactored User list fetch (piped it) in UsersList Shell to use SwitchMap properly.
+* - Edit user form gets pre-filled like before, user can edit.
+* - List of dirty fields gets displayed on the alert if trying to navigate and field is dirty.
+
+

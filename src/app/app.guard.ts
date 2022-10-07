@@ -1,3 +1,4 @@
+import { ListKeyManager } from '@angular/cdk/a11y';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, CanActivate, RouterStateSnapshot, UrlTree, CanActivateChild, CanLoad, CanDeactivate } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -54,7 +55,20 @@ export class AppGuard implements CanActivate, CanActivateChild, CanLoad, CanDeac
     if(component.isFormvalid()){
       return true
     }else{
-      window.confirm("Unsaved changes")
+      let changedProperties = []; // we fill with name of dirty form fields
+      let message =''; // the message variable for the alert
+
+      // we loop through the controls to find dirty controls
+      Object.keys(component.parentUserEditForm.controls).forEach((nestedGrp) => {
+        Object.keys((component.parentUserEditForm.controls[nestedGrp]).controls).forEach((field) => {
+          const currentControl = (component.parentUserEditForm.controls[nestedGrp]).controls[field];
+          if(currentControl.dirty){changedProperties.push(field)}
+        })
+      })
+      for (let i=0; i<changedProperties.length; i++){
+        message += changedProperties[i] + "\n"
+      }
+      window.confirm( "Unsaved changes in the following fields: \n " + message )
       return false
     }
   }
