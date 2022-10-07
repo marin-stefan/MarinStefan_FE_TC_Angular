@@ -12,7 +12,9 @@ import { AddressModel } from '../../interfaces/address-model';
 })
 export class EditUserShellComponent implements OnInit {
   
- 
+  public isFormSaved: boolean = false;
+  public isFormvalid = () => this.isFormSaved || !this.parentUserEditForm?.dirty
+  
   public parentUserEditForm = new FormGroup({}); // parent form
   public userId : number ; // id for user object
   public userToEdit : UserModel ; //user object to edit
@@ -39,6 +41,7 @@ export class EditUserShellComponent implements OnInit {
 
   // build the edited user obj based on the UserModel and calls userservice method to update in main db users array
   public submitChanges():void{
+    this.isFormSaved = true;
     let contactInfo = this.parentUserEditForm.controls['basicUserInfo'].value
     let addressInfo = this.parentUserEditForm.controls['addressUserInfo'].value
 

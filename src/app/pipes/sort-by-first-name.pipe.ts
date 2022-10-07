@@ -8,7 +8,6 @@ export class SortByFirstNamePipe implements PipeTransform {
 
 
   transform(value: CardModel[]):CardModel[] {
-    console.log("SortByFirstName Pipe has been called!")
 
     // takes CardModel's displayName and extracts firstName from the complete name and sorts cards by it 
     // then returns sorted array or user card of the same CardModel type

@@ -1,13 +1,13 @@
-import { Component, OnInit, QueryList, ViewChild, ViewChildren, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { CardTemplateComponent } from 'src/app/modules/shared/components/card-template/card-template.component';
 import { CardModel } from 'src/app/modules/shared/interfaces/card-model';
 import { UserService } from '../../services/user.service';
 import { SortByFirstNamePipe } from 'src/app/pipes/sort-by-first-name.pipe';
 import { MatPaginator } from '@angular/material/paginator';
-import { Observable } from 'rxjs';
-// import { MatTableDataSource } from '@angular/material/table';
+import { Observable, of, Subject, tap } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { debounceTime, scan, startWith, withLatestFrom } from 'rxjs/operators';
+import { debounceTime, scan, startWith, switchMap, withLatestFrom, last } from 'rxjs/operators';
+import { UserModel } from '../../interfaces/user-model';
 
 
 @Component({
@@ -17,8 +17,10 @@ import { debounceTime, scan, startWith, withLatestFrom } from 'rxjs/operators';
 })
 export class UsersShellComponent implements OnInit {
   
-  
-  public copyCards:CardModel[]; // a copy of the current page/index/size list of userd cards being displayed
+  public pageNoSubject$: Subject<string> = new Subject<string>;
+  public pageNoObs$:Observable<any> = this.pageNoSubject$.asObservable();
+   
+  public copyCards:CardModel[]=[]; // a copy of the current page/index/size list of userd cards being displayed
   public pageNo : number = 1;
   public pageSize: number = 5;
   public loading : boolean = true; // boolean variable for the spinner
@@ -27,78 +29,65 @@ export class UsersShellComponent implements OnInit {
   public baseCards: CardModel[] =[]; // our mai user array as if in db
   public cards: CardModel[] =[] // our copy that we modify
   public pipedBaseCards: CardModel[];
-  // public dataSource :MatTableDataSource<CardModel>
-  // public obs$: Observable<any>;
 
   public curValue = '';
   public searchFieldFilter = new FormControl()
   public searchTarget$ : Observable<string[]>;
 
   @ViewChildren(CardTemplateComponent) viewChildren: QueryList<CardTemplateComponent>
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
   constructor(
     private _userService: UserService,
     private _sortByFirstName : SortByFirstNamePipe,
-    // private changeDetectorRef: ChangeDetectorRef
-    ) { }
+    ) {
+      this.pageNoSubject$.next(this.pageNo.toString())
+      this._userService.getUsersFromApi('abc', '1', '5').subscribe((users)=>this.populateInfo(users))
+     }
     
     ngOnInit(): void {
-      this.loading = true;
-      // getting ;list of users from API then populating the 3 variables i use 
-      this._userService.getUsersFromApi('abc', '1', '5')
-        
-        .subscribe((users)=>{
-        this.baseCards = this._userService.mapUsers(users)
-        this.pipedBaseCards = this._sortByFirstName.transform(this.baseCards);
-        this.cards = JSON.parse(JSON.stringify(this.pipedBaseCards));
-        this.copyCards = JSON.parse(JSON.stringify(this.pipedBaseCards));
-        this.loading = false;
+      this.loading = true; // mat spinner status variable
+      this.pageNoObs$.
+        pipe(
+            switchMap((page) => this._userService.getUsersFromApi('abc', page, this.pageSize.toString()))
+        )
+        .subscribe((users)=>this.populateInfo(users))
 
-        // this.dataSource = new MatTableDataSource<CardModel>(this.pipedBaseCards);
-        // this.changeDetectorRef.detectChanges();
-        // this.dataSource.paginator = this.paginator;
-        // this.obs$ = this.dataSource.connect();
+      this.searchTarget$ = this.searchFieldFilter.valueChanges.pipe(
+        debounceTime(1000), // wait 1 sec until user stops
+        startWith(this.curValue), // initial value
+        // Accumlate input values; clear when input is empty
+        scan((acc, t) => t ? acc.concat(t) : [], []),
+      );
 
+      this.searchTarget$
+        .pipe(withLatestFrom(this.searchTarget$))
+        .subscribe((stream) => {
+          const target = (stream[0])[stream[0].length - 1]
+          if(target){
+            this.cards = this.cards.filter((card) => card.displayName.includes(target))
+          }else{
+            this.cards = JSON.parse(JSON.stringify(this.copyCards))
+          }
+      });
 
-        this.searchTarget$ = this.searchFieldFilter.valueChanges.pipe(
-          debounceTime(1000), // wait 1 sec until user stops
-          startWith(this.curValue), // initial value
-          // Accumlate input values; clear when input is empty
-          scan((acc, t) => t ? acc.concat(t) : [], []),
-          );
-
-
-        this.searchTarget$
-          .pipe(withLatestFrom(this.searchTarget$))
-          .subscribe((stream) => {
-            const target = (stream[0])[stream[0].length - 1]
-            if(target){
-              this.cards = this.cards.filter((card) => card.displayName.includes(target))
-            }else{
-              this.cards = JSON.parse(JSON.stringify(this.copyCards))
-            }
-        })
-    })
   };
 
   // handle event from paginator
   pageEvent(event: { pageIndex: any; pageSize: any; }){
-    this.loading = true;
-    const pageNr = ((event.pageIndex)+1).toString();
-    const itemsNr = (event.pageSize).toString();
+    this.loading = true; // mat spinner status variable
     this.pageSize = event.pageSize;
     this.pageNo = event.pageIndex + 1;
-    this._userService.getUsersFromApi('abc', pageNr, itemsNr)
-    .subscribe((users)=>{
-      this.baseCards = this._userService.mapUsers(users)
-        this.pipedBaseCards = this._sortByFirstName.transform(this.baseCards);
-        this.cards = JSON.parse(JSON.stringify(this.pipedBaseCards));
-        this.copyCards = JSON.parse(JSON.stringify(this.pipedBaseCards));
-        this.loading = false;
-    })
+    this.pageNoSubject$.next(this.pageNo.toString())
   };
+
+  populateInfo(users:UserModel[]):void{
+    this.baseCards = this._userService.mapUsers(users)
+    this.pipedBaseCards = this._sortByFirstName.transform(this.baseCards);
+    this.cards = JSON.parse(JSON.stringify(this.pipedBaseCards));
+    this.copyCards = JSON.parse(JSON.stringify(this.pipedBaseCards));
+    this.loading = false;
+  }
 
   // inverts the boolean value of the status and result for showHiddenCards method
   hideDisplayNonActive():void{

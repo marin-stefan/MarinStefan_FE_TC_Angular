@@ -9,17 +9,14 @@
         (newActivateCardsEvent)="activateCards()">
     </app-users-side-bar-menu-shell>
     
-    
     <div class="userListMain">
-       
         <mat-paginator 
             class="mat-elevation-z8"
             [length]="999"
             [pageIndex]="0"
             [pageSize]="5"
             [pageSizeOptions]="[5, 10, 25]"
-            (page)="pageEvent($event)"
-            >
+            (page)="pageEvent($event)">
         </mat-paginator>
         <div class="userSearch">
             <p>Search Users By First Name</p>
