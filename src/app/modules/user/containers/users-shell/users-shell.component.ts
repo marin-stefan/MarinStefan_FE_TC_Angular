@@ -1,13 +1,11 @@
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { CardTemplateComponent } from 'src/app/modules/shared/components/card-template/card-template.component';
-import { CardModel } from 'src/app/modules/shared/interfaces/card-model';
 import { UserService } from '../../services/user.service';
 import { SortByFirstNamePipe } from 'src/app/pipes/sort-by-first-name.pipe';
 import { MatPaginator } from '@angular/material/paginator';
-import { Observable, of, Subject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap, map, combineLatest } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { debounceTime, scan, startWith, switchMap, withLatestFrom, last } from 'rxjs/operators';
-import { UserModel } from '../../interfaces/user-model';
+import { debounceTime, scan, startWith, switchMap } from 'rxjs/operators';
 
 
 @Component({
@@ -17,22 +15,22 @@ import { UserModel } from '../../interfaces/user-model';
 })
 export class UsersShellComponent implements OnInit {
   
-  public pageNoSubject$: Subject<string> = new Subject<string>;
-  public pageNoObs$:Observable<any> = this.pageNoSubject$.asObservable();
-   
-  public copyCards:CardModel[]=[]; // a copy of the current page/index/size list of userd cards being displayed
-  public pageNo : number = 1;
+  // public pageNo : number = 1; 
   public pageSize: number = 5;
-  public loading : boolean = true; // boolean variable for the spinner
-  public showHiddenCards = true; // variable for showing hidden cards
-  public status: boolean = false; // status for each user
-  public baseCards: CardModel[] =[]; // our mai user array as if in db
-  public cards: CardModel[] =[] // our copy that we modify
-  public pipedBaseCards: CardModel[];
+  public loading : boolean = true; // boolean variable for the spinner 
+  public searchCurrentValue : string = ''; // starter value and reset field refference .
 
-  public curValue = '';
   public searchFieldFilter = new FormControl()
   public searchTarget$ : Observable<string[]>;
+  public sortCase : BehaviorSubject<string> = new BehaviorSubject<string>('all')
+  public pageNumber: BehaviorSubject<string> = new BehaviorSubject<string>('1');
+  public cards$ : Observable<any>
+
+
+  public status: boolean = true; // status for each user
+  public showHiddenCards = true; // variable for showing hidden cards
+  
+
 
   @ViewChildren(CardTemplateComponent) viewChildren: QueryList<CardTemplateComponent>
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -40,93 +38,89 @@ export class UsersShellComponent implements OnInit {
   constructor(
     private _userService: UserService,
     private _sortByFirstName : SortByFirstNamePipe,
-    ) {
-      this.pageNoSubject$.next(this.pageNo.toString())
-      this._userService.getUsersFromApi('abc', '1', '5').subscribe((users)=>this.populateInfo(users))
-     }
+    ) { }
     
     ngOnInit(): void {
-      this.loading = true; // mat spinner status variable
-      this.pageNoObs$.
-        pipe(
-            switchMap((page) => this._userService.getUsersFromApi('abc', page, this.pageSize.toString()))
-        )
-        .subscribe((users)=>this.populateInfo(users))
 
       this.searchTarget$ = this.searchFieldFilter.valueChanges.pipe(
         debounceTime(1000), // wait 1 sec until user stops
-        startWith(this.curValue), // initial value
+        startWith(this.searchCurrentValue), // initial value
         // Accumlate input values; clear when input is empty
-        scan((acc, t) => t ? acc.concat(t) : [], []),
+        scan((acc, t) => t ? t : null, null)
       );
 
-      this.searchTarget$
-        .pipe(withLatestFrom(this.searchTarget$))
-        .subscribe((stream) => {
-          const target = (stream[0])[stream[0].length - 1]
-          if(target){
-            this.cards = this.cards.filter((card) => card.displayName.includes(target))
-          }else{
-            this.cards = JSON.parse(JSON.stringify(this.copyCards))
-          }
-      });
+      this.cards$ = combineLatest(this.pageNumber, this.searchTarget$, this.sortCase).pipe(
+          switchMap((data) => {
+            let currentPageNumber = data[0]; // refference for 1st obs value
+            let searchTarget = data[1]; // refference for 2nd obs value
+            let genderOption = data[2]; // refference for 3rd obs value
+            if (!searchTarget) {
+              this.loading = true // mat-spinner variable
+
+              // if search is blank or cleared we display the whole list of users(size depending on paginator selection)
+              return this._userService.getUsersFromApi('abc', currentPageNumber, this.pageSize.toString()).pipe(
+                map((res) => {
+                  return res.filter((user) => {
+                    return  ((user.property.split(' '))[1] === genderOption || genderOption === 'all') 
+                  })
+                })
+              ) 
+            } else {
+              return this._userService.getUsersFromApi('abc', currentPageNumber, this.pageSize.toString()).pipe(
+                map((res) => {
+                    return res.filter((user) => { 
+                      // save in some variables for others to understand
+                      const nameOfUser = user.displayName.split(" ")[1];
+                      const searchCombination = (searchTarget.toString());
+                      const userGender = (user.property.split(' '))[1];
+                      return nameOfUser === searchCombination && (genderOption === userGender || genderOption ===  'all')
+                    })
+                  }
+                )
+              )
+            }
+          }),tap(() => this.loading = false) // changing the mat-spinner variable to hide it.
+      );
 
   };
 
   // handle event from paginator
   pageEvent(event: { pageIndex: any; pageSize: any; }){
-    this.loading = true; // mat spinner status variable
     this.pageSize = event.pageSize;
-    this.pageNo = event.pageIndex + 1;
-    this.pageNoSubject$.next(this.pageNo.toString())
+    this.pageNumber.next((event.pageIndex+1).toString())
   };
 
-  populateInfo(users:UserModel[]):void{
-    this.baseCards = this._userService.mapUsers(users)
-    this.pipedBaseCards = this._sortByFirstName.transform(this.baseCards);
-    this.cards = JSON.parse(JSON.stringify(this.pipedBaseCards));
-    this.copyCards = JSON.parse(JSON.stringify(this.pipedBaseCards));
-    this.loading = false;
+  genderSelect(event){
+    this.sortCase.next(event) // emits the value of the selected option
   }
+
+  clearSearchField(){
+    this.searchCurrentValue = ''; //clear the search field
+  }
+
+
+
+  
+  
 
   // inverts the boolean value of the status and result for showHiddenCards method
   hideDisplayNonActive():void{
-    this.showHiddenCards = !this.showHiddenCards;
-    this.status = !this.status
+    // this.showHiddenCards = !this.showHiddenCards;
+    // this.status = !this.status
   };
 
   // inverts the boolean value of that certain user object's status value
   statusChange(eventData: {status: boolean, id: number, index: number}):void{
-    this.pipedBaseCards[eventData.index].status = !this.pipedBaseCards[eventData.index].status
+    // this.pipedBaseCards[eventData.index].status = !this.pipedBaseCards[eventData.index].status
   };
 
-  // filters cards array which is displayed by the html
-  genderSort(value:string):void{
-    switch(value){
-      case 'all':
-        // this.genderSorting = 'all'
-        // this.cards = JSON.parse(JSON.stringify(this.pipedBaseCards));
-        // console.log(this.cards)
-        break;
-      case 'male':
-        // this.genderSorting = 'male'
-        // this.cards = JSON.parse(JSON.stringify(this.pipedBaseCards));
-        // this.cards = this.cards.filter((card:CardModel)=> card.property === 'Gender: male');
-        // console.log(this.cards)
-        break;
-      case 'female':
-        // this.genderSorting = 'female'
-        // this.cards = JSON.parse(JSON.stringify(this.pipedBaseCards));
-        // this.cards = this.cards.filter((card:CardModel)=> card.property === 'Gender: female');
-        // console.log(this.cards)
-        break;
-    }
-  };
 
   // method to return if all cards are active or at least one of them isn't
   areAllUsersActive():boolean{
-    return this.cards.every(card => card.status)
+    // return this.cards.every(card => card.status)
+    return true
   };
+
 
   // method to modify each card's status to true 
   activateCards():void{

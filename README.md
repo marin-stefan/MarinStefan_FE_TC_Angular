@@ -162,5 +162,13 @@
 * - Refactored User list fetch (piped it) in UsersList Shell to use SwitchMap properly.
 * - Edit user form gets pre-filled like before, user can edit.
 * - List of dirty fields gets displayed on the alert if trying to navigate and field is dirty.
+* - Refactored Observables and code in Users-Shell.
+* - Added a clear button for the search user field at user list sheell.
+* - Refactored search user to display target only at full match, else on clear we get the user list displayed again.
+* - Refactored user service api feetch to return the list of users already mapped to the CardModel.
+* - Main Cards$ observable now combines and filters data from several observables.
+
+
+
 
 

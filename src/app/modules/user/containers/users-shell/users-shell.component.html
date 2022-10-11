@@ -4,7 +4,7 @@
     <app-users-side-bar-menu-shell 
         [status]="status"
         [usersStatus]="areAllUsersActive()"
-        (newGenderEvent)="genderSort($event)"
+        (newGenderEvent)="genderSelect($event)"
         (newHideDisplayNonActiveEvent)="hideDisplayNonActive()"
         (newActivateCardsEvent)="activateCards()">
     </app-users-side-bar-menu-shell>
@@ -20,15 +20,17 @@
         </mat-paginator>
         <div class="userSearch">
             <p>Search Users By First Name</p>
-            <input type="text" [formControl]="searchFieldFilter" [(ngModel)]="curValue">
-            <p *ngIf="curValue.length>0"><i>you are searching for : {{curValue}}</i></p>
+            <input type="text" [formControl]="searchFieldFilter" [(ngModel)]="searchCurrentValue">
+            <button type="button" (click)="clearSearchField()">Clear</button>
+            <p *ngIf="searchCurrentValue.length>0"><i>you are searching for : {{searchCurrentValue}}</i></p>
+
+            <!-- <p *ngIf="(cards$ | async)?.length<1">No results were found</p> -->
+            
         </div>
         <mat-spinner *ngIf="loading" [diameter]="300" class="loadSpinner"></mat-spinner>
 
         <div class="userList" [ngClass]="{'hide': loading}" >
-            <ng-container *ngIf="cards.length<1">No results match you query</ng-container>
-            
-            <ng-container *ngFor="let card of cards; let i = index" >
+            <ng-container *ngFor="let card of cards$ | async; let i = index" >
                 <ng-container *ngIf="showHiddenCards; else showOnlyActive" >
                     <app-card-template
                         [ngClass]="{'userCard':true , 'gray':!card.status}"
@@ -39,7 +41,7 @@
                             account_circle
                         </mat-icon>
                         <app-my-button 
-                            button (click)="statusChange({status: card.status, id: card.id, index: i})" 
+                            button type="button" (click)="statusChange({status: card.status, id: card.id, index: i})" 
                             [text]="card.status ? 'de-activate': 'activate'">
                         </app-my-button>
                         <mat-icon pencil routerLink="edit-user/{{card.id}}" class="icons">edit</mat-icon>

@@ -14,20 +14,22 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsersFromApi(seed:string, page:string, results:string):Observable<UserModel[]>{
+  getUsersFromApi(seed:string, page:string, results:string):Observable<CardModel[]>{
+
     // return the user list from randomuser.me
     return this.http.get<RandomApiResponse>("https://randomuser.me/api/?page="+page+"&results="+results+"&seed="+seed)
       .pipe(
-        map(
-          (res) => {
+        map((res) => {
             return res.results.filter((user) => (user.id).value).map(
-              (user) => this.userModelMappedUser(user) 
+              (user) => { 
+                const userModelMapped = this.userModelMappedUser(user)
+                this.localCopyOfUsers.push(userModelMapped) // populating copy of users used for edit andn detail components
+                return this.mapUser(userModelMapped)
+              }
             )
           }
-        ),tap((result) => {
-          this.localCopyOfUsers = result // storing data in locaal variable
-        })
-    )
+        )
+      )
   };
 
   userModelMappedUser(user:RandomUserModel):UserModel{
@@ -48,6 +50,26 @@ export class UserService {
       picture: (user.picture).large
     }
   }
+
+  mapUser(user:UserModel):CardModel{
+    
+      return {
+        id: user.id,
+        type: 'user',
+        displayName: 'Name: '+ user.firstName +" "+ user.lastName,
+        age: "Age: " + user.age,
+        property: "Gender: "+ user.gender, 
+        status: user.activated,
+        picture: user.picture,
+        specificInfo: "Company: " + user.company,  
+        specificInfo2: "Department: " + user.department,  
+        specificInfo3: "Email: " + user.email,  
+        specificInfo4: "Address: " + user.address1,  
+        specificInfo5: user.address2,  
+        specificInfo6: user.address3,
+      }
+  
+  };
 
   mapUsers(users:UserModel[]):CardModel[]{
     return users.map((user) => {
