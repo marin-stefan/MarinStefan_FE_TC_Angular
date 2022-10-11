@@ -49,7 +49,7 @@ export class UsersShellComponent implements OnInit {
         scan((acc, t) => t ? t : null, null)
       );
 
-      this.cards$ = combineLatest(this.pageNumber, this.searchTarget$, this.sortCase).pipe(
+      this.cards$ = combineLatest([this.pageNumber, this.searchTarget$, this.sortCase]).pipe(
           switchMap((data) => {
             let currentPageNumber = data[0]; // refference for 1st obs value
             let searchTarget = data[1]; // refference for 2nd obs value
@@ -100,7 +100,7 @@ export class UsersShellComponent implements OnInit {
 
 
 
-  
+
   
 
   // inverts the boolean value of the status and result for showHiddenCards method
