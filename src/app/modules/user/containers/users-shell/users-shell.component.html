@@ -24,12 +24,12 @@
             <button type="button" (click)="clearSearchField()">Clear</button>
             <p *ngIf="searchCurrentValue.length>0"><i>you are searching for : {{searchCurrentValue}}</i></p>
 
-            <!-- <p *ngIf="(cards$ | async)?.length<1">No results were found</p> -->
+            <p *ngIf="(cards$ | async)?.length<1">No results were found</p>
             
         </div>
         <mat-spinner *ngIf="loading" [diameter]="300" class="loadSpinner"></mat-spinner>
 
-        <div class="userList" [ngClass]="{'hide': loading}" >
+        <div class="userList" [ngClass]="{'hide': false}" >
             <ng-container *ngFor="let card of cards$ | async; let i = index" >
                 <ng-container *ngIf="showHiddenCards; else showOnlyActive" >
                     <app-card-template

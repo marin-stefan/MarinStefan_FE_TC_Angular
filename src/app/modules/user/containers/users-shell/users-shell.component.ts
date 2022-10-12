@@ -3,7 +3,7 @@ import { CardTemplateComponent } from 'src/app/modules/shared/components/card-te
 import { UserService } from '../../services/user.service';
 import { SortByFirstNamePipe } from 'src/app/pipes/sort-by-first-name.pipe';
 import { MatPaginator } from '@angular/material/paginator';
-import { BehaviorSubject, Observable, tap, map, combineLatest } from 'rxjs';
+import { BehaviorSubject, Observable, tap, map, combineLatest, share, merge } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { debounceTime, scan, startWith, switchMap } from 'rxjs/operators';
 
@@ -20,11 +20,11 @@ export class UsersShellComponent implements OnInit {
   public loading : boolean = true; // boolean variable for the spinner 
   public searchCurrentValue : string = ''; // starter value and reset field refference .
 
-  public searchFieldFilter = new FormControl()
-  public searchTarget$ : Observable<string[]>;
-  public sortCase : BehaviorSubject<string> = new BehaviorSubject<string>('all')
+  public searchFieldFilter = new FormControl();
+  public searchTarget$ : Observable<string>;
+  public sortCase : BehaviorSubject<string> = new BehaviorSubject<string>('all');
   public pageNumber: BehaviorSubject<string> = new BehaviorSubject<string>('1');
-  public cards$ : Observable<any>
+  public cards$ : Observable<any>;
 
 
   public status: boolean = true; // status for each user
@@ -49,39 +49,32 @@ export class UsersShellComponent implements OnInit {
         scan((acc, t) => t ? t : null, null)
       );
 
-      this.cards$ = combineLatest([this.pageNumber, this.searchTarget$, this.sortCase]).pipe(
-          switchMap((data) => {
-            let currentPageNumber = data[0]; // refference for 1st obs value
-            let searchTarget = data[1]; // refference for 2nd obs value
-            let genderOption = data[2]; // refference for 3rd obs value
-            if (!searchTarget) {
-              this.loading = true // mat-spinner variable
-
-              // if search is blank or cleared we display the whole list of users(size depending on paginator selection)
-              return this._userService.getUsersFromApi('abc', currentPageNumber, this.pageSize.toString()).pipe(
-                map((res) => {
-                  return res.filter((user) => {
-                    return  ((user.property.split(' '))[1] === genderOption || genderOption === 'all') 
-                  })
+      //combines from sort value and page number value and with that calls api for users with thoose options
+      const pageAndSort$ = combineLatest([this.pageNumber, this.sortCase]).pipe(
+        switchMap(([pageNr, gender]) => {
+          this.loading = true;
+          return this._userService.getUsersFromApi('abc', pageNr, this.pageSize.toString()).pipe(
+            map((res) => {
+                return res.filter((user) => { 
+                  // save in some variables for others to understand
+                  const userGender = (user.property.split(' '))[1];
+                  return (gender === userGender || gender ===  'all')
                 })
-              ) 
-            } else {
-              return this._userService.getUsersFromApi('abc', currentPageNumber, this.pageSize.toString()).pipe(
-                map((res) => {
-                    return res.filter((user) => { 
-                      // save in some variables for others to understand
-                      const nameOfUser = user.displayName.split(" ")[1];
-                      const searchCombination = (searchTarget.toString());
-                      const userGender = (user.property.split(' '))[1];
-                      return nameOfUser === searchCombination && (genderOption === userGender || genderOption ===  'all')
-                    })
-                  }
-                )
-              )
-            }
-          }),tap(() => this.loading = false) // changing the mat-spinner variable to hide it.
-      );
+              }
+            ),tap(
+              // variable for the mat-spinner,also handled at error.
+              () => this.loading = false,
+              () => this.loading = false
+            )
+          )
+        })
+      )
 
+      // combines latest from search filed and from the pageAndSort, 
+      this.cards$ = combineLatest(([this.searchTarget$, pageAndSort$ ])).pipe(
+        map(([search, users]) => search? users.filter(user => user.displayName.includes(search)) : users )
+      ).pipe(share())
+          
   };
 
   // handle event from paginator
@@ -101,7 +94,7 @@ export class UsersShellComponent implements OnInit {
 
 
 
-  
+
 
   // inverts the boolean value of the status and result for showHiddenCards method
   hideDisplayNonActive():void{
